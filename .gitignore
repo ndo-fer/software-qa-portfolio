@@ -1,0 +1,20 @@
+# Dependencies
+node_modules/
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# Cypress generated artifacts
+cypress/videos/
+cypress/downloads/
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+.vscode/settings.json
+
+# Temporary files
+*.tmp
+*.log
