@@ -355,6 +355,37 @@ These 22 entries are coverage topics, not final requirement wording. None is app
 | CAND-CHK-03 | Checkout | Required checkout information | OBSERVED BEHAVIOR | READY FOR CONSOLIDATION |
 | CAND-CHK-04 | Checkout | Successful completion and post-order state | OBSERVED BEHAVIOR | READY FOR CONSOLIDATION |
 
+## 7A. Requirement Consolidation Proposal
+
+> Consolidation review completed. The approved portfolio baseline is maintained in Section 9.
+
+### 7A.1 Candidate Topic Analysis Summary
+
+| Candidate | Decision | Proposed Requirement Group | Evidence Basis | OQ Dependency | Reasoning |
+|---|---|---|---|---|---|
+| CAND-AUTH-01 | SPLIT INTO MULTIPLE REQUIREMENTS | REQ-AUTH-001, REQ-AUTH-002 | OBS-AUTH-001, OBS-AUTH-002, OBS-AUTH-003 | OPEN (AUTH-OQ-001, 002, 003) | Form UI accessibility vs registration submission success are separate testable features. Validation rules remain open & scope-limited. |
+| CAND-AUTH-02 | KEEP AS ONE REQUIREMENT | REQ-AUTH-003 | OBS-AUTH-005 | OPEN (AUTH-OQ-005) | Valid credential login updates session header. Remember me persistence duration remains open. |
+| CAND-AUTH-03 | SPLIT INTO MULTIPLE REQUIREMENTS | REQ-AUTH-004, REQ-AUTH-005 | OBS-AUTH-006, OBS-AUTH-007 | NONE (AUTH-OQ-004, 006 RESOLVED) | Invalid login error/clearing vs protected URL redirect after logout are distinct functional boundaries. |
+| CAND-AUTH-04 | MERGE WITH ANOTHER CANDIDATE | Merged into REQ-CHK-001 | OBS-CHK-002 | NONE | Unauthenticated checkout lander entry is part of checkout initiation (CAND-CHK-02). |
+| CAND-DISC-01 | KEEP AS ONE REQUIREMENT | REQ-DISC-001 | OBS-DISC-005 | NONE | Standard category navigation renders matching product catalog list. |
+| CAND-DISC-02 | SPLIT INTO MULTIPLE REQUIREMENTS | REQ-DISC-002, REQ-DISC-003 | OBS-DISC-001, OBS-DISC-002 | OPEN (DISC-OQ-001), NONE (DISC-OQ-004 RESOLVED) | Keyword search results vs zero-result empty state message are separate outcomes. Matching semantics open under DISC-OQ-001. |
+| CAND-DISC-03 | CONSOLIDATE WITH SCOPE LIMITATION | REQ-DISC-004 | OBS-DISC-003, OBS-DISC-004 | OPEN (DISC-OQ-001) | Advanced search category constraint verified; complex boolean logic remains open. |
+| CAND-DISC-04 | CONSOLIDATE WITH SCOPE LIMITATION | REQ-DISC-005 | OBS-DISC-004-FILT / DISC-EV-NIKE.png | OPEN (DISC-OQ-002, DISC-OQ-005) | Single manufacturer checkbox filter verified; multi-filter combination semantics remain open. |
+| CAND-DISC-05 | SPLIT INTO MULTIPLE REQUIREMENTS | REQ-DISC-006, REQ-DISC-007, REQ-DISC-008 | OBS-DISC-005-SORT, OBS-DISC-006-VIEW, Page Size Repair Canonical Record | PARTIAL (DISC-OQ-007, DISC-OQ-008), OPEN (DISC-OQ-006) | Sorting, Grid/List view toggle, and page size adjustment are distinct controls. Query preservation during layout changes partially open. |
+| CAND-PDP-01 | KEEP AS ONE REQUIREMENT | REQ-PDP-001 | OBS-PDP-001 | NONE | Simple PDP displays basic details, price, SKU, and active cart button without options. |
+| CAND-PDP-02 | CONSOLIDATE WITH SCOPE LIMITATION | REQ-PDP-002 | OBS-PDP-002, OBS-PDP-004 | NONE (PDP-OQ-001 RESOLVED), OPEN (PDP-OQ-002) | Missing required configuration blocks cart addition; unavailable combinations open. |
+| CAND-PDP-03 | CONSOLIDATE WITH SCOPE LIMITATION | REQ-PDP-003 | OBS-PDP-005, OBS-PDP-006, PDP-EV-001-CONFIGB.png | PARTIAL (PDP-OQ-003), NONE (PDP-OQ-007 RESOLVED) | Price updates dynamically and configured item enters cart; image swap & SKU changes partially open. |
+| CAND-PDP-04 | HOLD — INSUFFICIENT EVIDENCE | None (Held) | OBS-PDP-003, PDP-OQ-004 | PARTIAL (PDP-OQ-004), OPEN (PDP-OQ-005, 006) | Quantity boundaries, malformed input handling, and refresh retention are unverified across products. |
+| CAND-CART-01 | MERGE WITH ANOTHER CANDIDATE | Merged into REQ-CART-006 | OBS-CART-001, OBS-CART-004 | NONE (PDP-OQ-007, CART-OQ-002 RESOLVED) | Cart line item representation is part of configuration identity (CAND-CART-05). |
+| CAND-CART-02 | CONSOLIDATE WITH SCOPE LIMITATION | REQ-CART-001 | OBS-CART-002 | OPEN (CART-OQ-004), NONE (CART-OQ-008 RESOLVED) | Quantity update recalculates totals; max capacity limits open under CART-OQ-004. |
+| CAND-CART-03 | KEEP AS ONE REQUIREMENT | REQ-CART-002 | OBS-CART-006 | NONE | Multi-item cart line removal updates table and totals without clearing remaining items. |
+| CAND-CART-04 | SPLIT INTO MULTIPLE REQUIREMENTS | REQ-CART-003, REQ-CART-004 | OBS-CART-007, Cart C0-C3 Canonical Micro-Run | NONE (CART-OQ-003, CART-OQ-005 RESOLVED) | Final item removal/empty cart screen vs multi-surface (Header/Mini-Cart/Full-Cart) synchronization are distinct concerns. |
+| CAND-CART-05 | SPLIT INTO MULTIPLE REQUIREMENTS | REQ-CART-005, REQ-CART-006 | OBS-CART-003, OBS-CART-004, CART-EV-C3-MICRO.png, CART-EV-003.png | NONE (CART-OQ-001, CART-OQ-002 RESOLVED) | Identical configuration quantity merging vs distinct configuration line separation are separate behaviors. |
+| CAND-CHK-01 | MERGE WITH ANOTHER CANDIDATE | Merged into REQ-CHK-001 | OBS-CHK-001, OBS-CHK-002 | NONE | Terms acceptance and unauthenticated entry lead into guest checkout lander (CAND-CHK-02). |
+| CAND-CHK-02 | CONSOLIDATE WITH SCOPE LIMITATION | REQ-CHK-001 | OBS-CHK-002, OBS-CHK-003 | NONE (CHK-OQ-001 RESOLVED) | Unauthenticated checkout lander presents Guest/Register/Login options and initiates guest checkout flow. |
+| CAND-CHK-03 | SPLIT INTO MULTIPLE REQUIREMENTS | REQ-CHK-002, REQ-CHK-003 | OBS-CHK-004, OBS-CHK-005 | NONE (CHK-OQ-001, 002, 003, 004, 005 RESOLVED) | Step sequence & required billing fields vs shipping/payment option selection are distinct checkout stages. |
+| CAND-CHK-04 | SPLIT INTO MULTIPLE REQUIREMENTS | REQ-CHK-004, REQ-CHK-005 | OBS-CHK-005, OBS-CHK-006 | NONE (CHK-OQ-006, 007, 008 RESOLVED), OPEN (CHK-OQ-009) | Order confirmation page display vs post-order cart reset are distinct outcomes. Registered user history open under CHK-OQ-009. |
+
 ## 8. Discovery Checklist
 
 > This checklist preserves the original discovery actions used to structure the live exploration. The checklist itself is not a PASS/FAIL execution record. Execution outcomes and evidence are maintained in `05-exploratory-notes.md`, where all 44 actions have recorded observations.
@@ -423,3 +454,310 @@ For every action, record: precondition, action, actual behavior, state before, s
 Do not create defects during this session. An unexpected result remains **POTENTIAL DEFECT — NEEDS CLARIFICATION** unless expected behavior is already sufficiently established.
 
 ## 9. Approved Requirements
+
+### 9.1 Authentication Module
+
+- **Requirement ID:** REQ-AUTH-001
+  - **Module:** Authentication
+  - **Title:** Registration Form Accessibility & Required Field Indicators
+  - **Precondition:** Storefront header is accessible to an anonymous user.
+  - **Requirement:** When an anonymous user clicks the "Register" link in the header, the storefront shall display the registration form containing personal data fields (Gender, First name, Last name, Date of birth, Email, Company details) with mandatory input fields marked with visual indicators (`*`).
+  - **Evidence Basis:** OBSERVED BEHAVIOR
+  - **Supporting Observation / Evidence:** `OBS-AUTH-001` / `AUTH-EV-001.png`
+  - **Scope Limitation:** Client-side tooltips, field layout responsiveness, and visual styling are strictly bounded to current demo layout. Server-side regex and exact field length limits remain unverified.
+  - **Dependent Open Questions:** `AUTH-OQ-001`, `AUTH-OQ-003`
+  - **Status:** APPROVED — PORTFOLIO BASELINE
+
+- **Requirement ID:** REQ-AUTH-002
+  - **Module:** Authentication
+  - **Title:** Successful User Account Registration
+  - **Precondition:** User is on the registration page with valid, unique user registration details.
+  - **Requirement:** When a user fills all required fields with valid, non-duplicate registration data and clicks "Register", the storefront shall create the account and render the confirmation message `"Your registration completed"`.
+  - **Evidence Basis:** OBSERVED BEHAVIOR
+  - **Supporting Observation / Evidence:** `OBS-AUTH-002`, `OBS-AUTH-003` / `AUTH-EV-002.png`, `AUTH-EV-003.png`
+  - **Scope Limitation:** Registration success is bounded to unique disposable email addresses. Duplicate email submission outcomes and server-side validation error messages remain unverified.
+  - **Dependent Open Questions:** `AUTH-OQ-001`, `AUTH-OQ-002`, `AUTH-OQ-003`
+  - **Status:** APPROVED — PORTFOLIO BASELINE
+
+- **Requirement ID:** REQ-AUTH-003
+  - **Module:** Authentication
+  - **Title:** Successful Authentication and Session Header State
+  - **Precondition:** Account exists in the current environment and user is on the login page.
+  - **Requirement:** When a user enters valid registered credentials (Email and Password) and clicks "Log in", the storefront shall authenticate the session and update the header navigation to display the customer account link and a "Log out" action.
+  - **Evidence Basis:** OBSERVED BEHAVIOR
+  - **Supporting Observation / Evidence:** `OBS-AUTH-005`
+  - **Scope Limitation:** Remember me persistence across browser restarts and session duration remain unverified.
+  - **Dependent Open Questions:** `AUTH-OQ-005`
+  - **Status:** APPROVED — PORTFOLIO BASELINE
+
+- **Requirement ID:** REQ-AUTH-004
+  - **Module:** Authentication
+  - **Title:** Invalid Login Credential Handling & Field Clearing
+  - **Precondition:** User is on the login page.
+  - **Requirement:** When a user submits invalid or unrecognized login credentials, the storefront shall reject authentication, remain in anonymous state, display an error summary banner containing `"Login was unsuccessful..."`, and clear both the Email and Password input fields (`value=""`).
+  - **Evidence Basis:** OBSERVED BEHAVIOR
+  - **Supporting Observation / Evidence:** `OBS-AUTH-006` / `AUTH-EV-004.png`
+  - **Scope Limitation:** Bounded to single invalid login attempt. Account locking, attempt limits, and brute-force throttling remain unverified.
+  - **Dependent Open Questions:** NONE (`AUTH-OQ-004` RESOLVED)
+  - **Status:** APPROVED — PORTFOLIO BASELINE
+
+- **Requirement ID:** REQ-AUTH-005
+  - **Module:** Authentication
+  - **Title:** Protected Page Access Redirection for Anonymous Users
+  - **Precondition:** User is currently anonymous (unauthenticated or logged out).
+  - **Requirement:** When an anonymous user attempts direct URL navigation to a protected customer account URL (e.g., `/customer/info`), the storefront shall block access and redirect the browser to `/login`.
+  - **Evidence Basis:** OBSERVED BEHAVIOR
+  - **Supporting Observation / Evidence:** `OBS-AUTH-007`
+  - **Scope Limitation:** Evaluated for customer info URL only; other protected admin or account endpoints remain unverified.
+  - **Dependent Open Questions:** NONE (`AUTH-OQ-006` RESOLVED)
+  - **Status:** APPROVED — PORTFOLIO BASELINE
+
+### 9.2 Product Discovery / Search Module
+
+- **Requirement ID:** REQ-DISC-001
+  - **Module:** Product Discovery
+  - **Title:** Category Catalog Navigation
+  - **Precondition:** Storefront navigation menu is visible.
+  - **Requirement:** When a user clicks a top-level or sub-category link in the catalog menu (e.g., `/shoes` or `/computers`), the storefront shall display the category page containing the category title, breadcrumb trail, and the list of assigned products.
+  - **Evidence Basis:** OBSERVED BEHAVIOR
+  - **Supporting Observation / Evidence:** `OBS-DISC-005` / `DISC-EV-001.png`
+  - **Scope Limitation:** Bounded to active categories in demo catalog.
+  - **Dependent Open Questions:** NONE
+  - **Status:** APPROVED — PORTFOLIO BASELINE
+
+- **Requirement ID:** REQ-DISC-002
+  - **Module:** Product Discovery
+  - **Title:** Simple Search Execution & Keyword Matching
+  - **Precondition:** Search input bar is visible in storefront header.
+  - **Requirement:** When a user enters a product title keyword (e.g., `"computer"`) and submits the search form, the storefront shall return a product listing page containing products matching the query keyword.
+  - **Evidence Basis:** OBSERVED BEHAVIOR
+  - **Supporting Observation / Evidence:** `OBS-DISC-001`
+  - **Scope Limitation:** Matching algorithm tokenization, stemming, description indexing, and fuzzy matching rules remain unverified.
+  - **Dependent Open Questions:** `DISC-OQ-001`
+  - **Status:** APPROVED — PORTFOLIO BASELINE
+
+- **Requirement ID:** REQ-DISC-003
+  - **Module:** Product Discovery
+  - **Title:** Zero-Result Search Empty State Display
+  - **Precondition:** User submits a search query that matches zero items in the catalog.
+  - **Requirement:** When a search query yields no catalog matches, the storefront shall render an empty state message displaying `"No products were found that matched your criteria."`.
+  - **Evidence Basis:** OBSERVED BEHAVIOR
+  - **Supporting Observation / Evidence:** `OBS-DISC-002` / `DISC-EV-002.png`
+  - **Scope Limitation:** Bounded to standard simple search submit.
+  - **Dependent Open Questions:** NONE (`DISC-OQ-004` RESOLVED)
+  - **Status:** APPROVED — PORTFOLIO BASELINE
+
+- **Requirement ID:** REQ-DISC-004
+  - **Module:** Product Discovery
+  - **Title:** Advanced Search Category and Subcategory Filtering
+  - **Precondition:** User is on the Advanced Search page (`/search`).
+  - **Requirement:** When a user enters a search term, selects a specific Category constraint, enables "Automatically search sub categories", and submits the form, the storefront shall return only products matching both the query keyword and the selected category hierarchy.
+  - **Evidence Basis:** OBSERVED BEHAVIOR
+  - **Supporting Observation / Evidence:** `OBS-DISC-003`, `OBS-DISC-004` / `DISC-EV-003.png`, `DISC-EV-004.png`
+  - **Scope Limitation:** Multi-category selection and price-range advanced search parameters remain unverified.
+  - **Dependent Open Questions:** `DISC-OQ-001`
+  - **Status:** APPROVED — PORTFOLIO BASELINE
+
+- **Requirement ID:** REQ-DISC-005
+  - **Module:** Product Discovery
+  - **Title:** Manufacturer Filtering
+  - **Precondition:** User is viewing a category page that exposes specification filters (e.g., `/shoes`).
+  - **Requirement:** When a user selects a manufacturer checkbox filter (e.g., `Nike`), the storefront shall update the displayed product list to include only products matching the selected specification option.
+  - **Evidence Basis:** OBSERVED BEHAVIOR
+  - **Supporting Observation / Evidence:** `OBS-DISC-004-FILT` / `DISC-EV-NIKE.png`
+  - **Scope Limitation:** Multi-filter boolean AND/OR combinations and price slider interactions remain unverified.
+  - **Dependent Open Questions:** `DISC-OQ-002`, `DISC-OQ-005`
+  - **Status:** APPROVED — PORTFOLIO BASELINE
+
+- **Requirement ID:** REQ-DISC-006
+  - **Module:** Product Discovery
+  - **Title:** Catalog Product Sorting and Category Preservation
+  - **Precondition:** User is viewing a product listing page.
+  - **Requirement:** When a user selects a sort option from the "Sort by" dropdown (e.g., `Price: Low to High`), the storefront shall reorder the displayed product set according to the selected criteria while maintaining the active category context.
+  - **Evidence Basis:** OBSERVED BEHAVIOR
+  - **Supporting Observation / Evidence:** `OBS-DISC-005-SORT`
+  - **Scope Limitation:** Displayed selling price vs base price sorting on configurable products remains unverified.
+  - **Dependent Open Questions:** `DISC-OQ-006`
+  - **Status:** APPROVED — PORTFOLIO BASELINE
+
+- **Requirement ID:** REQ-DISC-007
+  - **Module:** Product Discovery
+  - **Title:** View Mode Layout Switching and Filter/Sort State Retention
+  - **Precondition:** User is viewing a product listing page with active filter or sort options.
+  - **Requirement:** When a user toggles the view mode control between Grid and List view, the storefront shall adjust the product item DOM layout while preserving active category, manufacturer filter, and sort state.
+  - **Evidence Basis:** OBSERVED BEHAVIOR
+  - **Supporting Observation / Evidence:** `OBS-DISC-006-VIEW`
+  - **Scope Limitation:** Preservation of active simple search query strings across view toggles was not tested and remains unverified.
+  - **Dependent Open Questions:** `DISC-OQ-007` (PARTIALLY RESOLVED)
+  - **Status:** APPROVED — PORTFOLIO BASELINE
+
+- **Requirement ID:** REQ-DISC-008
+  - **Module:** Product Discovery
+  - **Title:** Page Size Adjustment and State Preservation
+  - **Precondition:** User is viewing a category or product listing page exposing page size options.
+  - **Requirement:** When a user selects a different page size option (e.g., changing dropdown from 6 to 3), the storefront shall adjust the visible product count per page, append `pagesize=N` to the URL, and preserve active category, filter, and sort state.
+  - **Evidence Basis:** OBSERVED BEHAVIOR
+  - **Supporting Observation / Evidence:** `Page Size Repair Canonical Record`
+  - **Scope Limitation:** Preservation of active simple search query strings across page size adjustments was not tested and remains unverified.
+  - **Dependent Open Questions:** `DISC-OQ-008` (PARTIALLY RESOLVED)
+  - **Status:** APPROVED — PORTFOLIO BASELINE
+
+### 9.3 Product Detail & Configuration Module
+
+- **Requirement ID:** REQ-PDP-001
+  - **Module:** Product Detail
+  - **Title:** Simple Non-Configurable Product Information Display
+  - **Precondition:** User opens the detail page of a simple product (e.g., `Digital Storm VANQUISH Custom Performance PC`).
+  - **Requirement:** The storefront shall display product title, SKU, price (`$1,259.00`), quantity input, and an active "Add to cart" button without requiring mandatory option selections.
+  - **Evidence Basis:** OBSERVED BEHAVIOR
+  - **Supporting Observation / Evidence:** `OBS-PDP-001` / `PDP-EV-001.png`
+  - **Scope Limitation:** Bounded to non-configurable simple product pages.
+  - **Dependent Open Questions:** NONE
+  - **Status:** APPROVED — PORTFOLIO BASELINE
+
+- **Requirement ID:** REQ-PDP-002
+  - **Module:** Product Detail
+  - **Title:** Required Attribute Configuration Enforcement
+  - **Precondition:** User is viewing a PDP for a configurable product requiring mandatory attribute selections (e.g., `Build your own computer`).
+  - **Requirement:** When a user clicks "Add to cart" without selecting all mandatory attribute options, the storefront shall block cart addition and display a top notification error message.
+  - **Evidence Basis:** OBSERVED BEHAVIOR
+  - **Supporting Observation / Evidence:** `OBS-PDP-002`, `OBS-PDP-004` / `PDP-EV-002.png`
+  - **Scope Limitation:** Out-of-stock or incompatible option combination handling remains unverified.
+  - **Dependent Open Questions:** NONE (`PDP-OQ-001` RESOLVED)
+  - **Status:** APPROVED — PORTFOLIO BASELINE
+
+- **Requirement ID:** REQ-PDP-003
+  - **Module:** Product Detail
+  - **Title:** Dynamic Price Update and Configured Cart Addition
+  - **Precondition:** User is viewing a configurable product PDP with option pricing adjustments.
+  - **Requirement:** When a user selects attribute options with price surcharges (e.g., Config A or Config B), the storefront shall dynamically update the displayed product price, and clicking "Add to cart" shall add the configured item to cart, render a top green confirmation bar, and increment the header cart count.
+  - **Evidence Basis:** OBSERVED BEHAVIOR
+  - **Supporting Observation / Evidence:** `OBS-PDP-005`, `OBS-PDP-006`, `PDP-EV-001-CONFIGB.png`
+  - **Scope Limitation:** Image thumbnail swapping and SKU code changes upon attribute selection remain unverified.
+  - **Dependent Open Questions:** `PDP-OQ-003` (PARTIALLY RESOLVED)
+  - **Status:** APPROVED — PORTFOLIO BASELINE
+
+### 9.4 Cart Module
+
+- **Requirement ID:** REQ-CART-001
+  - **Module:** Cart
+  - **Title:** Cart Line Item Quantity Update and Subtotal Recalculation
+  - **Precondition:** Shopping cart contains an item.
+  - **Requirement:** When a user modifies the quantity input field for a cart line item (e.g., 1 -> 2) and clicks "Update shopping cart", the storefront shall recalculate and update the line item subtotal and overall cart total.
+  - **Evidence Basis:** OBSERVED BEHAVIOR
+  - **Supporting Observation / Evidence:** `OBS-CART-002` / `CART-EV-002.png`
+  - **Scope Limitation:** Maximum quantity boundaries, stock limit validation error popups, and high-quantity input sanitization remain unverified.
+  - **Dependent Open Questions:** `CART-OQ-004`
+  - **Status:** APPROVED — PORTFOLIO BASELINE
+
+- **Requirement ID:** REQ-CART-002
+  - **Module:** Cart
+  - **Title:** Multi-Item Cart Line Item Removal
+  - **Precondition:** Shopping cart contains two or more distinct line item rows.
+  - **Requirement:** When a user selects the "Remove" control for one line item in a multi-item cart, the storefront shall remove that line item from the cart table, update the header count badge, and recalculate cart totals while retaining all remaining cart items.
+  - **Evidence Basis:** OBSERVED BEHAVIOR
+  - **Supporting Observation / Evidence:** `OBS-CART-006` / `CART-EV-004.png`
+  - **Scope Limitation:** Bounded to multi-item cart state.
+  - **Dependent Open Questions:** NONE
+  - **Status:** APPROVED — PORTFOLIO BASELINE
+
+- **Requirement ID:** REQ-CART-003
+  - **Module:** Cart
+  - **Title:** Final Cart Item Removal and Empty Cart State
+  - **Precondition:** Shopping cart contains exactly one line item.
+  - **Requirement:** When a user removes the final item from the shopping cart, the storefront shall transition to empty cart state, display `"Your Shopping Cart is empty!"`, reset header cart count to `(0)`, and hide order summary and checkout action buttons.
+  - **Evidence Basis:** OBSERVED BEHAVIOR
+  - **Supporting Observation / Evidence:** `OBS-CART-007`
+  - **Scope Limitation:** Bounded to final item removal.
+  - **Dependent Open Questions:** NONE (`CART-OQ-003` RESOLVED)
+  - **Status:** APPROVED — PORTFOLIO BASELINE
+
+- **Requirement ID:** REQ-CART-004
+  - **Module:** Cart
+  - **Title:** Cart Surface State Synchronization across Full Cart, Header, and Mini-Cart
+  - **Precondition:** Cart state transitions occur (addition, quantity update, removal).
+  - **Requirement:** The storefront shall maintain immediate state synchronization between the header cart count badge `(N)`, the mini-cart flyout dropdown, and the full shopping cart table across all cart states (C0 through C3).
+  - **Evidence Basis:** OBSERVED BEHAVIOR
+  - **Supporting Observation / Evidence:** `Cart C0-C3 Canonical Micro-Run`
+  - **Scope Limitation:** Bounded to active browser session interactions. Guest cart merging upon authentication remains unverified.
+  - **Dependent Open Questions:** NONE (`CART-OQ-005` RESOLVED)
+  - **Status:** APPROVED — PORTFOLIO BASELINE
+
+- **Requirement ID:** REQ-CART-005
+  - **Module:** Cart
+  - **Title:** Identical Product Configuration Quantity Merging
+  - **Precondition:** Shopping cart contains a configured product, and user adds the identical product configuration again from the PDP.
+  - **Requirement:** When an identical product configuration is added to cart a second time, the storefront shall merge the addition into the existing line item row by incrementing its quantity (e.g., Qty 2 -> 3) rather than creating a duplicate row.
+  - **Evidence Basis:** OBSERVED BEHAVIOR
+  - **Supporting Observation / Evidence:** `OBS-CART-003` / `CART-EV-C3-MICRO.png`
+  - **Scope Limitation:** Bounded to exact matching attribute configurations.
+  - **Dependent Open Questions:** NONE (`CART-OQ-001` RESOLVED)
+  - **Status:** APPROVED — PORTFOLIO BASELINE
+
+- **Requirement ID:** REQ-CART-006
+  - **Module:** Cart
+  - **Title:** Distinct Product Configuration Line Item Separation
+  - **Precondition:** Shopping cart contains a configured product, and user adds a different configuration of the same base product from the PDP.
+  - **Requirement:** When a different configuration of an existing base product is added to cart, the storefront shall create a separate cart line item row displaying its specific attribute option summary text.
+  - **Evidence Basis:** OBSERVED BEHAVIOR
+  - **Supporting Observation / Evidence:** `OBS-CART-004` / `CART-EV-003.png`
+  - **Scope Limitation:** Bounded to distinguishable attribute configurations.
+  - **Dependent Open Questions:** NONE (`CART-OQ-002` RESOLVED)
+  - **Status:** APPROVED — PORTFOLIO BASELINE
+
+### 9.5 Checkout Module
+
+- **Requirement ID:** REQ-CHK-001
+  - **Module:** Checkout
+  - **Title:** Anonymous Checkout Initiation and Guest Entry
+  - **Precondition:** Anonymous user has a nonempty cart and accepts the Terms of Service checkbox on `/cart`.
+  - **Requirement:** When an anonymous user clicks "Checkout", the storefront shall display the checkout lander page offering "Checkout as Guest", "Register", and "Returning Customer / Login" options, and clicking "Checkout as Guest" shall initiate the guest checkout process.
+  - **Evidence Basis:** OBSERVED BEHAVIOR
+  - **Supporting Observation / Evidence:** `OBS-CHK-001`, `OBS-CHK-002`, `OBS-CHK-003` / `CHK-EV-001.png`, `CHK-EV-002.png`
+  - **Scope Limitation:** Bounded to anonymous physical-product checkout initiation.
+  - **Dependent Open Questions:** NONE (`CHK-OQ-001` RESOLVED)
+  - **Status:** APPROVED — PORTFOLIO BASELINE
+
+- **Requirement ID:** REQ-CHK-002
+  - **Module:** Checkout
+  - **Title:** Guest Checkout Step Sequence and Required Billing Fields
+  - **Precondition:** User initiates guest checkout for a physical product.
+  - **Requirement:** The storefront shall present the tested guest checkout sequence as Billing Address -> Shipping Address -> Shipping Method -> Payment Method -> Payment Information -> Confirm Order, and shall mark First Name, Last Name, Email, Country, City, Address 1, Zip/Postal Code, and Phone as required billing fields.
+  - **Evidence Basis:** OBSERVED BEHAVIOR
+  - **Supporting Observation / Evidence:** `OBS-CHK-004` / `CHK-EV-003.png`
+  - **Scope Limitation:** Negative field-level inline validation rules remain unverified.
+  - **Dependent Open Questions:** NONE (`CHK-OQ-001`, `CHK-OQ-002` RESOLVED)
+  - **Status:** APPROVED — PORTFOLIO BASELINE
+
+- **Requirement ID:** REQ-CHK-003
+  - **Module:** Checkout
+  - **Title:** Shipping and Payment Method Selection in Guest Checkout
+  - **Precondition:** User is in the guest checkout accordion sequence.
+  - **Requirement:** The storefront shall expose shipping method options (Ground, Next Day Air, 2nd Day Air) after shipping address confirmation, and payment method options (Check / Money Order, Credit Card) prior to order review.
+  - **Evidence Basis:** OBSERVED BEHAVIOR
+  - **Supporting Observation / Evidence:** `OBS-CHK-004`, `OBS-CHK-005` / `CHK-EV-004.png`
+  - **Scope Limitation:** Credit card payment gateway authorization and processing remain unverified.
+  - **Dependent Open Questions:** NONE (`CHK-OQ-004`, `CHK-OQ-005` RESOLVED)
+  - **Status:** APPROVED — PORTFOLIO BASELINE
+
+- **Requirement ID:** REQ-CHK-004
+  - **Module:** Checkout
+  - **Title:** Demo Order Completion and Confirmation Display
+  - **Precondition:** User selects Check / Money Order payment method and reaches the Confirm Order step.
+  - **Requirement:** When the user submits order confirmation, the storefront shall process the order without requiring external payment gateway processing, render `"Your order has been successfully processed!"`, and assign a unique order number.
+  - **Evidence Basis:** OBSERVED BEHAVIOR
+  - **Supporting Observation / Evidence:** `OBS-CHK-005` / `CHK-EV-005.png`
+  - **Scope Limitation:** Registered user account portal order history, PDF invoice generation, and re-order functionality remain unverified.
+  - **Dependent Open Questions:** `CHK-OQ-009`
+  - **Status:** APPROVED — PORTFOLIO BASELINE
+
+- **Requirement ID:** REQ-CHK-005
+  - **Module:** Checkout
+  - **Title:** Post-Order Cart Reset to Empty State
+  - **Precondition:** Order confirmation is successfully processed.
+  - **Requirement:** Upon order completion confirmation, the storefront shall clear the active shopping cart, reset line item count to 0, and restore header cart count to `(0)`.
+  - **Evidence Basis:** OBSERVED BEHAVIOR
+  - **Supporting Observation / Evidence:** `OBS-CHK-006`
+  - **Scope Limitation:** Bounded to guest checkout session completion.
+  - **Dependent Open Questions:** NONE (`CHK-OQ-008` RESOLVED)
+  - **Status:** APPROVED — PORTFOLIO BASELINE
