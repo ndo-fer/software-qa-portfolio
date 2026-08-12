@@ -101,6 +101,27 @@ Clean-room legacy ERP migration analysis from feature reconstruction through sta
 | [QA test scenarios](02-legacy-erp-analysis-case-study/docs/09-qa-test-scenarios.md) | Risk-based coverage for all 19 requirements. |
 | [Selected ERP test cases](02-legacy-erp-analysis-case-study/test-cases/10-selected-erp-test-cases.xlsx) | 16 detailed, implementation-agnostic cases; not executed. |
 
+## Third Project — REST API Testing
+
+**Status:** COMPLETE
+
+Executable Restful Booker API QA suite covering authenticated CRUD, negative authorization, schema validation, dynamic resource chaining, Postman CLI execution, and GitHub Actions CI.
+
+| Metric | Result |
+|---|---:|
+| Designed API tests | 16 |
+| Collection requests | 19 |
+| Assertions | 47/47 PASS |
+| JSON Schema checks | 2 |
+| Local Postman CLI | PASS |
+| GitHub Actions CI | [PASS](https://github.com/ndo-fer/software-qa-portfolio/actions/runs/31580107425) |
+
+- [Project 3 README](03-api-testing-case-study/README.md)
+- [API Test Design](03-api-testing-case-study/docs/01-api-test-design.md)
+- [Postman Collection](03-api-testing-case-study/postman/restful-booker.postman_collection.json)
+- [JUnit Local Report](03-api-testing-case-study/reports/postman-cli-junit.xml)
+- [GitHub Actions workflow](.github/workflows/postman-api.yml)
+
 ## Project Structure
 
 ```text
@@ -117,12 +138,13 @@ software-qa-portfolio/
 └── 04-selenium-case-study/
 ```
 
-## Other Portfolio Projects
+## Portfolio Projects
 
 | Project | Status |
 |---|---|
+| 1. E-Commerce QA Case Study | **COMPLETE** |
 | 2. Legacy ERP Migration Analysis | **COMPLETE** |
-| 3. REST API Testing | **Planned** |
+| 3. REST API Testing | **COMPLETE** |
 | 4. Selenium Case Study | **Optional / Future** |
 
 ## About Me
