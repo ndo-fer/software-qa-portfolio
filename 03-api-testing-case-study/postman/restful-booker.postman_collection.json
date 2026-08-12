@@ -1,0 +1,266 @@
+{
+  "info": {
+    "_postman_id": "ac148acb-cad4-4c3a-aeaa-4be350d7d10a",
+    "name": "Restful Booker API Test Suite",
+    "description": "Stateful, isolated Restful Booker API portfolio suite. Each run creates and deletes only its own runtime booking.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "00 Health",
+      "item": [
+        {
+          "name": "Health check",
+          "request": { "method": "GET", "header": [], "url": "{{baseUrl}}/ping", "description": "API-HEALTH-001" },
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('Ping returns documented 201 status', function () { pm.response.to.have.status(201); });"
+          ] } }]
+        }
+      ]
+    },
+    {
+      "name": "01 Authentication",
+      "item": [
+        {
+          "name": "Create token with valid credentials",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Accept", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"username\": \"{{username}}\",\n  \"password\": \"{{password}}\"\n}" },
+            "url": "{{baseUrl}}/auth",
+            "description": "API-AUTH-001"
+          },
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('Valid authentication returns 200', function () { pm.response.to.have.status(200); });",
+            "const auth = pm.response.json();",
+            "pm.test('Authentication response contains a string token', function () { pm.expect(auth.token).to.be.a('string'); });",
+            "pm.test('Authentication token is non-empty', function () { pm.expect(auth.token.trim()).to.not.equal(''); });",
+            "if (auth.token) { pm.environment.set('token', auth.token); }"
+          ] } }]
+        },
+        {
+          "name": "Invalid credentials do not issue token",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Accept", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"username\": \"invalid-{{username}}\",\n  \"password\": \"invalid-{{password}}\"\n}" },
+            "url": "{{baseUrl}}/auth",
+            "description": "API-AUTH-002"
+          },
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('Invalid authentication returns documented 200 response', function () { pm.response.to.have.status(200); });",
+            "pm.test('Invalid credentials return a reason and no valid token', function () { const body = pm.response.json(); pm.expect(body).to.have.property('reason'); pm.expect(body.token).to.be.undefined; });"
+          ] } }]
+        }
+      ]
+    },
+    {
+      "name": "02 Booking Lifecycle",
+      "item": [
+        {
+          "name": "List bookings",
+          "request": { "method": "GET", "header": [{ "key": "Accept", "value": "application/json" }], "url": "{{baseUrl}}/booking", "description": "API-BOOK-001" },
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('Booking index returns 200', function () { pm.response.to.have.status(200); });",
+            "pm.test('Booking index is an array', function () { pm.expect(pm.response.json()).to.be.an('array'); });",
+            "pm.test('Booking index entries expose numeric bookingid values', function () { const rows = pm.response.json(); rows.slice(0, 10).forEach(function (row) { pm.expect(row.bookingid).to.be.a('number'); }); });"
+          ] } }]
+        },
+        {
+          "name": "Create disposable booking",
+          "event": [
+            { "listen": "prerequest", "script": { "exec": [
+              "const suffix = Date.now().toString() + '-' + Math.floor(Math.random() * 10000);",
+              "pm.environment.set('runtimeFirstName', 'QA-' + suffix);",
+              "pm.environment.set('runtimeLastName', 'Run-' + suffix);",
+              "pm.environment.unset('bookingId');"
+            ] } },
+            { "listen": "test", "script": { "exec": [
+              "const body = pm.response.json();",
+              "const detailSchema = { type: 'object', required: ['firstname','lastname','totalprice','depositpaid','bookingdates'], properties: { firstname: {type:'string'}, lastname: {type:'string'}, totalprice: {type:'number'}, depositpaid: {type:'boolean'}, bookingdates: { type:'object', required:['checkin','checkout'], properties:{ checkin:{type:'string'}, checkout:{type:'string'} } }, additionalneeds:{type:'string'} } };",
+              "const envelopeSchema = { type:'object', required:['bookingid','booking'], properties:{ bookingid:{type:'number'}, booking:detailSchema } };",
+              "pm.test('Create booking returns 200', function () { pm.response.to.have.status(200); });",
+              "pm.test('Create response contains dynamic numeric bookingid', function () { pm.expect(body.bookingid).to.be.a('number').and.above(0); });",
+              "pm.test('Create response matches submitted identity and price', function () { pm.expect(body.booking.firstname).to.equal(pm.environment.get('runtimeFirstName')); pm.expect(body.booking.lastname).to.equal(pm.environment.get('runtimeLastName')); pm.expect(body.booking.totalprice).to.equal(111); });",
+              "pm.test('Create response preserves dates and additional needs', function () { pm.expect(body.booking.bookingdates).to.deep.equal({checkin:'2026-09-01', checkout:'2026-09-05'}); pm.expect(body.booking.additionalneeds).to.equal('Breakfast'); });",
+              "pm.test('Create response satisfies envelope schema', function () { pm.response.to.have.jsonSchema(envelopeSchema); });",
+              "if (body.bookingid) { pm.environment.set('bookingId', String(body.bookingid)); }"
+            ] } }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Accept", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"firstname\": \"{{runtimeFirstName}}\",\n  \"lastname\": \"{{runtimeLastName}}\",\n  \"totalprice\": 111,\n  \"depositpaid\": true,\n  \"bookingdates\": {\n    \"checkin\": \"2026-09-01\",\n    \"checkout\": \"2026-09-05\"\n  },\n  \"additionalneeds\": \"Breakfast\"\n}" },
+            "url": "{{baseUrl}}/booking",
+            "description": "API-BOOK-002 and API-CONTRACT-001"
+          }
+        },
+        {
+          "name": "Get newly created booking",
+          "request": { "method": "GET", "header": [{ "key": "Accept", "value": "application/json" }], "url": "{{baseUrl}}/booking/{{bookingId}}", "description": "API-BOOK-003 and API-CONTRACT-002" },
+          "event": [{ "listen": "test", "script": { "exec": [
+            "const body = pm.response.json();",
+            "const schema = { type:'object', required:['firstname','lastname','totalprice','depositpaid','bookingdates'], properties:{ firstname:{type:'string'}, lastname:{type:'string'}, totalprice:{type:'number'}, depositpaid:{type:'boolean'}, bookingdates:{type:'object', required:['checkin','checkout'], properties:{checkin:{type:'string'}, checkout:{type:'string'}}}, additionalneeds:{type:'string'} } };",
+            "pm.test('New booking detail returns 200', function () { pm.response.to.have.status(200); });",
+            "pm.test('Booking detail satisfies JSON Schema', function () { pm.response.to.have.jsonSchema(schema); });",
+            "pm.test('Booking detail matches runtime identity', function () { pm.expect(body.firstname).to.equal(pm.environment.get('runtimeFirstName')); pm.expect(body.lastname).to.equal(pm.environment.get('runtimeLastName')); });",
+            "pm.test('Booking detail matches submitted values', function () { pm.expect(body.totalprice).to.equal(111); pm.expect(body.depositpaid).to.equal(true); pm.expect(body.bookingdates.checkout).to.equal('2026-09-05'); pm.expect(body.additionalneeds).to.equal('Breakfast'); });"
+          ] } }]
+        },
+        {
+          "name": "Full update booking",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Accept", "value": "application/json" }, { "key": "Cookie", "value": "token={{token}}", "type": "text" }],
+            "body": { "mode": "raw", "raw": "{\n  \"firstname\": \"Updated-{{runtimeFirstName}}\",\n  \"lastname\": \"Updated-{{runtimeLastName}}\",\n  \"totalprice\": 222,\n  \"depositpaid\": false,\n  \"bookingdates\": {\n    \"checkin\": \"2026-10-01\",\n    \"checkout\": \"2026-10-07\"\n  },\n  \"additionalneeds\": \"Dinner\"\n}" },
+            "url": "{{baseUrl}}/booking/{{bookingId}}",
+            "description": "API-BOOK-004"
+          },
+          "event": [{ "listen": "test", "script": { "exec": [
+            "const body = pm.response.json();",
+            "pm.test('Authenticated PUT returns 200', function () { pm.response.to.have.status(200); });",
+            "pm.test('PUT replaces identity fields', function () { pm.expect(body.firstname).to.equal('Updated-' + pm.environment.get('runtimeFirstName')); pm.expect(body.lastname).to.equal('Updated-' + pm.environment.get('runtimeLastName')); });",
+            "pm.test('PUT replaces scalar fields', function () { pm.expect(body.totalprice).to.equal(222); pm.expect(body.depositpaid).to.equal(false); pm.expect(body.additionalneeds).to.equal('Dinner'); });",
+            "pm.test('PUT replaces complete booking dates', function () { pm.expect(body.bookingdates).to.deep.equal({checkin:'2026-10-01', checkout:'2026-10-07'}); });"
+          ] } }]
+        },
+        {
+          "name": "Verify full update persistence",
+          "request": { "method": "GET", "header": [{ "key": "Accept", "value": "application/json" }], "url": "{{baseUrl}}/booking/{{bookingId}}", "description": "API-BOOK-005" },
+          "event": [{ "listen": "test", "script": { "exec": [
+            "const body = pm.response.json();",
+            "pm.test('GET after PUT returns 200', function () { pm.response.to.have.status(200); });",
+            "pm.test('PUT identity persisted', function () { pm.expect(body.firstname).to.equal('Updated-' + pm.environment.get('runtimeFirstName')); pm.expect(body.lastname).to.equal('Updated-' + pm.environment.get('runtimeLastName')); });",
+            "pm.test('PUT scalar fields persisted', function () { pm.expect(body.totalprice).to.equal(222); pm.expect(body.depositpaid).to.equal(false); pm.expect(body.additionalneeds).to.equal('Dinner'); });",
+            "pm.test('PUT dates persisted', function () { pm.expect(body.bookingdates).to.deep.equal({checkin:'2026-10-01', checkout:'2026-10-07'}); });"
+          ] } }]
+        },
+        {
+          "name": "Partially update booking",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Accept", "value": "application/json" }, { "key": "Cookie", "value": "token={{token}}", "type": "text" }],
+            "body": { "mode": "raw", "raw": "{\n  \"firstname\": \"Patched-{{runtimeFirstName}}\",\n  \"additionalneeds\": \"Late checkout\"\n}" },
+            "url": "{{baseUrl}}/booking/{{bookingId}}",
+            "description": "API-BOOK-006"
+          },
+          "event": [{ "listen": "test", "script": { "exec": [
+            "const body = pm.response.json();",
+            "pm.test('Authenticated PATCH returns 200', function () { pm.response.to.have.status(200); });",
+            "pm.test('PATCH changes selected fields', function () { pm.expect(body.firstname).to.equal('Patched-' + pm.environment.get('runtimeFirstName')); pm.expect(body.additionalneeds).to.equal('Late checkout'); });",
+            "pm.test('PATCH preserves untouched identity and price', function () { pm.expect(body.lastname).to.equal('Updated-' + pm.environment.get('runtimeLastName')); pm.expect(body.totalprice).to.equal(222); });",
+            "pm.test('PATCH preserves untouched boolean and dates', function () { pm.expect(body.depositpaid).to.equal(false); pm.expect(body.bookingdates).to.deep.equal({checkin:'2026-10-01', checkout:'2026-10-07'}); });"
+          ] } }]
+        },
+        {
+          "name": "Verify partial update persistence",
+          "request": { "method": "GET", "header": [{ "key": "Accept", "value": "application/json" }], "url": "{{baseUrl}}/booking/{{bookingId}}", "description": "API-BOOK-007" },
+          "event": [{ "listen": "test", "script": { "exec": [
+            "const body = pm.response.json();",
+            "pm.test('GET after PATCH returns 200', function () { pm.response.to.have.status(200); });",
+            "pm.test('PATCH changes persisted', function () { pm.expect(body.firstname).to.equal('Patched-' + pm.environment.get('runtimeFirstName')); pm.expect(body.additionalneeds).to.equal('Late checkout'); });",
+            "pm.test('Untouched PATCH identity and price persisted', function () { pm.expect(body.lastname).to.equal('Updated-' + pm.environment.get('runtimeLastName')); pm.expect(body.totalprice).to.equal(222); });",
+            "pm.test('Untouched PATCH boolean and dates persisted', function () { pm.expect(body.depositpaid).to.equal(false); pm.expect(body.bookingdates).to.deep.equal({checkin:'2026-10-01', checkout:'2026-10-07'}); });"
+          ] } }]
+        }
+      ]
+    },
+    {
+      "name": "03 Negative Authorization",
+      "item": [
+        {
+          "name": "Reject PATCH without authentication",
+          "request": { "method": "PATCH", "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Accept", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"totalprice\": 1\n}" }, "url": "{{baseUrl}}/booking/{{bookingId}}", "description": "API-NEG-001" },
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('PATCH without authentication is rejected with observed 403', function () { pm.response.to.have.status(403); });"
+          ] } }]
+        },
+        {
+          "name": "Verify state after rejected PATCH",
+          "request": { "method": "GET", "header": [{ "key": "Accept", "value": "application/json" }], "url": "{{baseUrl}}/booking/{{bookingId}}", "description": "Protected-state verification for API-NEG-001" },
+          "event": [{ "listen": "test", "script": { "exec": [
+            "const body = pm.response.json();",
+            "pm.test('Booking still exists after rejected PATCH', function () { pm.response.to.have.status(200); });",
+            "pm.test('Rejected PATCH did not change protected price', function () { pm.expect(body.totalprice).to.equal(222); });",
+            "pm.test('Rejected PATCH preserved prior partial-update state', function () { pm.expect(body.firstname).to.equal('Patched-' + pm.environment.get('runtimeFirstName')); pm.expect(body.additionalneeds).to.equal('Late checkout'); });"
+          ] } }]
+        },
+        {
+          "name": "Reject DELETE with invalid token",
+          "request": { "method": "DELETE", "header": [{ "key": "Cookie", "value": "token=invalid-token", "type": "text" }], "url": "{{baseUrl}}/booking/{{bookingId}}", "description": "API-NEG-002" },
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('DELETE with invalid token is rejected with observed 403', function () { pm.response.to.have.status(403); });"
+          ] } }]
+        },
+        {
+          "name": "Verify resource after rejected DELETE",
+          "request": { "method": "GET", "header": [{ "key": "Accept", "value": "application/json" }], "url": "{{baseUrl}}/booking/{{bookingId}}", "description": "Protected-resource verification for API-NEG-002" },
+          "event": [{ "listen": "test", "script": { "exec": [
+            "const body = pm.response.json();",
+            "pm.test('Booking still exists after rejected DELETE', function () { pm.response.to.have.status(200); });",
+            "pm.test('Rejected DELETE preserved runtime booking identity', function () { pm.expect(body.firstname).to.equal('Patched-' + pm.environment.get('runtimeFirstName')); pm.expect(body.lastname).to.equal('Updated-' + pm.environment.get('runtimeLastName')); });",
+            "pm.test('Rejected DELETE preserved runtime booking data', function () { pm.expect(body.totalprice).to.equal(222); pm.expect(body.additionalneeds).to.equal('Late checkout'); });"
+          ] } }]
+        }
+      ]
+    },
+    {
+      "name": "04 Negative / Contract",
+      "description": "Observed negative behavior only; 500 and 418 are not presented as defects or normative contract requirements.",
+      "item": [
+        {
+          "name": "Get unknown booking ID",
+          "request": { "method": "GET", "header": [{ "key": "Accept", "value": "application/json" }], "url": "{{baseUrl}}/booking/999999999", "description": "API-NEG-003 observed not-found behavior" },
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('Unknown booking ID returns observed 404', function () { pm.response.to.have.status(404); });"
+          ] } }]
+        },
+        {
+          "name": "Create booking with missing payload - observed behavior",
+          "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Accept", "value": "application/json" }], "body": { "mode": "raw", "raw": "" }, "url": "{{baseUrl}}/booking", "description": "API-NEG-003 observed negative behavior; not a defect claim" },
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('Missing create payload returns observed 500', function () { pm.response.to.have.status(500); });"
+          ] } }]
+        },
+        {
+          "name": "Observe unsupported Accept handling",
+          "request": { "method": "GET", "header": [{ "key": "Accept", "value": "application/xml" }], "url": "{{baseUrl}}/booking", "description": "API-NEG-004 observed negative behavior; not a defect claim" },
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('Unsupported Accept handling matches a known observed outcome', function () { pm.expect(pm.response.code).to.be.oneOf([200, 418]); });"
+          ] } }]
+        }
+      ]
+    },
+    {
+      "name": "99 Cleanup",
+      "description": "Deletes only bookingId captured from the current run.",
+      "item": [
+        {
+          "name": "Delete runtime-created booking",
+          "request": { "method": "DELETE", "header": [{ "key": "Cookie", "value": "token={{token}}", "type": "text" }], "url": "{{baseUrl}}/booking/{{bookingId}}", "description": "Authenticated, targeted teardown of only the current run resource" },
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('Authenticated cleanup deletes runtime booking with documented 201', function () { pm.response.to.have.status(201); });"
+          ] } }]
+        },
+        {
+          "name": "Verify runtime booking was deleted",
+          "request": { "method": "GET", "header": [{ "key": "Accept", "value": "application/json" }], "url": "{{baseUrl}}/booking/{{bookingId}}", "description": "Post-delete state verification" },
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('GET after cleanup returns observed 404', function () { pm.response.to.have.status(404); });",
+            "pm.environment.unset('bookingId');",
+            "pm.environment.unset('token');"
+          ] } }]
+        }
+      ]
+    }
+  ],
+  "variable": [
+    { "key": "baseUrl", "value": "https://restful-booker.herokuapp.com", "type": "string" },
+    { "key": "username", "value": "", "type": "string" },
+    { "key": "password", "value": "", "type": "string" },
+    { "key": "token", "value": "", "type": "string" },
+    { "key": "bookingId", "value": "", "type": "string" },
+    { "key": "runtimeFirstName", "value": "", "type": "string" },
+    { "key": "runtimeLastName", "value": "", "type": "string" }
+  ]
+}

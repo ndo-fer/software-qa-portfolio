@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Restful Booker API Test Suite" tests="19" time="6.114">
+  <testsuite name="00 Health / Health check" id="3d983427-99bd-4b9d-99f7-402fe9e0350e" timestamp="2026-08-12T08:37:02.369Z" tests="1" failures="0" errors="0" time="1.318">
+    <testcase name="Ping returns documented 201 status" time="1.318" classname="00HealthHealthCheck"/>
+  </testsuite>
+  <testsuite name="01 Authentication / Create token with valid credentials" id="9130fc34-5fe2-416e-9eb2-221ae578fb72" timestamp="2026-08-12T08:37:02.369Z" tests="3" failures="0" errors="0" time="0.252">
+    <testcase name="Valid authentication returns 200" time="0.252" classname="01AuthenticationCreateTokenWithValidCredentials"/>
+    <testcase name="Authentication response contains a string token" time="0.252" classname="01AuthenticationCreateTokenWithValidCredentials"/>
+    <testcase name="Authentication token is non-empty" time="0.252" classname="01AuthenticationCreateTokenWithValidCredentials"/>
+  </testsuite>
+  <testsuite name="01 Authentication / Invalid credentials do not issue token" id="122db855-1932-4255-aacf-dcf06cbf2d82" timestamp="2026-08-12T08:37:02.369Z" tests="2" failures="0" errors="0" time="0.255">
+    <testcase name="Invalid authentication returns documented 200 response" time="0.255" classname="01AuthenticationInvalidCredentialsDoNotIssueToken"/>
+    <testcase name="Invalid credentials return a reason and no valid token" time="0.255" classname="01AuthenticationInvalidCredentialsDoNotIssueToken"/>
+  </testsuite>
+  <testsuite name="02 Booking Lifecycle / List bookings" id="33b3f897-e7a0-460d-9293-df0cfdfdb82f" timestamp="2026-08-12T08:37:02.369Z" tests="3" failures="0" errors="0" time="0.501">
+    <testcase name="Booking index returns 200" time="0.501" classname="02BookingLifecycleListBookings"/>
+    <testcase name="Booking index is an array" time="0.501" classname="02BookingLifecycleListBookings"/>
+    <testcase name="Booking index entries expose numeric bookingid values" time="0.501" classname="02BookingLifecycleListBookings"/>
+  </testsuite>
+  <testsuite name="02 Booking Lifecycle / Create disposable booking" id="d74b8ef8-f705-49fe-aaa3-82fb3aad7def" timestamp="2026-08-12T08:37:02.369Z" tests="5" failures="0" errors="0" time="0.255">
+    <testcase name="Create booking returns 200" time="0.255" classname="02BookingLifecycleCreateDisposableBooking"/>
+    <testcase name="Create response contains dynamic numeric bookingid" time="0.255" classname="02BookingLifecycleCreateDisposableBooking"/>
+    <testcase name="Create response matches submitted identity and price" time="0.255" classname="02BookingLifecycleCreateDisposableBooking"/>
+    <testcase name="Create response preserves dates and additional needs" time="0.255" classname="02BookingLifecycleCreateDisposableBooking"/>
+    <testcase name="Create response satisfies envelope schema" time="0.255" classname="02BookingLifecycleCreateDisposableBooking"/>
+  </testsuite>
+  <testsuite name="02 Booking Lifecycle / Get newly created booking" id="ba40c30a-c5ef-4dff-a7ff-e78423b2d30b" timestamp="2026-08-12T08:37:02.369Z" tests="4" failures="0" errors="0" time="0.251">
+    <testcase name="New booking detail returns 200" time="0.251" classname="02BookingLifecycleGetNewlyCreatedBooking"/>
+    <testcase name="Booking detail satisfies JSON Schema" time="0.251" classname="02BookingLifecycleGetNewlyCreatedBooking"/>
+    <testcase name="Booking detail matches runtime identity" time="0.251" classname="02BookingLifecycleGetNewlyCreatedBooking"/>
+    <testcase name="Booking detail matches submitted values" time="0.251" classname="02BookingLifecycleGetNewlyCreatedBooking"/>
+  </testsuite>
+  <testsuite name="02 Booking Lifecycle / Full update booking" id="5742fa9c-e016-4e59-8f8c-536ed0ad7c51" timestamp="2026-08-12T08:37:02.369Z" tests="4" failures="0" errors="0" time="0.252">
+    <testcase name="Authenticated PUT returns 200" time="0.252" classname="02BookingLifecycleFullUpdateBooking"/>
+    <testcase name="PUT replaces identity fields" time="0.252" classname="02BookingLifecycleFullUpdateBooking"/>
+    <testcase name="PUT replaces scalar fields" time="0.252" classname="02BookingLifecycleFullUpdateBooking"/>
+    <testcase name="PUT replaces complete booking dates" time="0.252" classname="02BookingLifecycleFullUpdateBooking"/>
+  </testsuite>
+  <testsuite name="02 Booking Lifecycle / Verify full update persistence" id="0bf7c6b8-01be-403d-8aae-d7647a780b8e" timestamp="2026-08-12T08:37:02.369Z" tests="4" failures="0" errors="0" time="0.251">
+    <testcase name="GET after PUT returns 200" time="0.251" classname="02BookingLifecycleVerifyFullUpdatePersistence"/>
+    <testcase name="PUT identity persisted" time="0.251" classname="02BookingLifecycleVerifyFullUpdatePersistence"/>
+    <testcase name="PUT scalar fields persisted" time="0.251" classname="02BookingLifecycleVerifyFullUpdatePersistence"/>
+    <testcase name="PUT dates persisted" time="0.251" classname="02BookingLifecycleVerifyFullUpdatePersistence"/>
+  </testsuite>
+  <testsuite name="02 Booking Lifecycle / Partially update booking" id="2d74b79f-3f5c-47bd-a1de-0681d6c39079" timestamp="2026-08-12T08:37:02.369Z" tests="4" failures="0" errors="0" time="0.255">
+    <testcase name="Authenticated PATCH returns 200" time="0.255" classname="02BookingLifecyclePartiallyUpdateBooking"/>
+    <testcase name="PATCH changes selected fields" time="0.255" classname="02BookingLifecyclePartiallyUpdateBooking"/>
+    <testcase name="PATCH preserves untouched identity and price" time="0.255" classname="02BookingLifecyclePartiallyUpdateBooking"/>
+    <testcase name="PATCH preserves untouched boolean and dates" time="0.255" classname="02BookingLifecyclePartiallyUpdateBooking"/>
+  </testsuite>
+  <testsuite name="02 Booking Lifecycle / Verify partial update persistence" id="04e3d9b3-fe2f-4f41-a443-6b364ff57884" timestamp="2026-08-12T08:37:02.369Z" tests="4" failures="0" errors="0" time="0.250">
+    <testcase name="GET after PATCH returns 200" time="0.250" classname="02BookingLifecycleVerifyPartialUpdatePersistence"/>
+    <testcase name="PATCH changes persisted" time="0.250" classname="02BookingLifecycleVerifyPartialUpdatePersistence"/>
+    <testcase name="Untouched PATCH identity and price persisted" time="0.250" classname="02BookingLifecycleVerifyPartialUpdatePersistence"/>
+    <testcase name="Untouched PATCH boolean and dates persisted" time="0.250" classname="02BookingLifecycleVerifyPartialUpdatePersistence"/>
+  </testsuite>
+  <testsuite name="03 Negative Authorization / Reject PATCH without authentication" id="308874f4-8079-4399-9bbb-a9d09e5899d7" timestamp="2026-08-12T08:37:02.369Z" tests="1" failures="0" errors="0" time="0.250">
+    <testcase name="PATCH without authentication is rejected with observed 403" time="0.250" classname="03NegativeAuthorizationRejectPatchWithoutAuthentication"/>
+  </testsuite>
+  <testsuite name="03 Negative Authorization / Verify state after rejected PATCH" id="83939d7d-7c58-465b-b161-f431de70b3ab" timestamp="2026-08-12T08:37:02.369Z" tests="3" failures="0" errors="0" time="0.254">
+    <testcase name="Booking still exists after rejected PATCH" time="0.254" classname="03NegativeAuthorizationVerifyStateAfterRejectedPatch"/>
+    <testcase name="Rejected PATCH did not change protected price" time="0.254" classname="03NegativeAuthorizationVerifyStateAfterRejectedPatch"/>
+    <testcase name="Rejected PATCH preserved prior partial-update state" time="0.254" classname="03NegativeAuthorizationVerifyStateAfterRejectedPatch"/>
+  </testsuite>
+  <testsuite name="03 Negative Authorization / Reject DELETE with invalid token" id="c03194c5-95ec-4662-9262-73fecdc40ec6" timestamp="2026-08-12T08:37:02.369Z" tests="1" failures="0" errors="0" time="0.251">
+    <testcase name="DELETE with invalid token is rejected with observed 403" time="0.251" classname="03NegativeAuthorizationRejectDeleteWithInvalidToken"/>
+  </testsuite>
+  <testsuite name="03 Negative Authorization / Verify resource after rejected DELETE" id="2810f6ea-1a7e-41d2-b12f-cfbc0bf036fd" timestamp="2026-08-12T08:37:02.369Z" tests="3" failures="0" errors="0" time="0.263">
+    <testcase name="Booking still exists after rejected DELETE" time="0.263" classname="03NegativeAuthorizationVerifyResourceAfterRejectedDelete"/>
+    <testcase name="Rejected DELETE preserved runtime booking identity" time="0.263" classname="03NegativeAuthorizationVerifyResourceAfterRejectedDelete"/>
+    <testcase name="Rejected DELETE preserved runtime booking data" time="0.263" classname="03NegativeAuthorizationVerifyResourceAfterRejectedDelete"/>
+  </testsuite>
+  <testsuite name="04 Negative / Contract / Get unknown booking ID" id="83a38267-b60d-4a81-bc69-58609c45ba5a" timestamp="2026-08-12T08:37:02.369Z" tests="1" failures="0" errors="0" time="0.251">
+    <testcase name="Unknown booking ID returns observed 404" time="0.251" classname="04NegativeContractGetUnknownBookingId"/>
+  </testsuite>
+  <testsuite name="04 Negative / Contract / Create booking with missing payload - observed behavior" id="0cf3ed94-cfc9-4fd5-8269-e22660a988c2" timestamp="2026-08-12T08:37:02.369Z" tests="1" failures="0" errors="0" time="0.250">
+    <testcase name="Missing create payload returns observed 500" time="0.250" classname="04NegativeContractCreateBookingWithMissingPayloadObservedBehavior"/>
+  </testsuite>
+  <testsuite name="04 Negative / Contract / Observe unsupported Accept handling" id="7a0128c7-db85-4b82-ba76-33f8b30dfc29" timestamp="2026-08-12T08:37:02.369Z" tests="1" failures="0" errors="0" time="0.255">
+    <testcase name="Unsupported Accept handling matches a known observed outcome" time="0.255" classname="04NegativeContractObserveUnsupportedAcceptHandling"/>
+  </testsuite>
+  <testsuite name="99 Cleanup / Delete runtime-created booking" id="4fd7a0c1-191e-447e-bf7e-fdb64ff3764d" timestamp="2026-08-12T08:37:02.369Z" tests="1" failures="0" errors="0" time="0.250">
+    <testcase name="Authenticated cleanup deletes runtime booking with documented 201" time="0.250" classname="99CleanupDeleteRuntimeCreatedBooking"/>
+  </testsuite>
+  <testsuite name="99 Cleanup / Verify runtime booking was deleted" id="59b7e814-b533-4bda-aa31-1d27a14c5365" timestamp="2026-08-12T08:37:02.369Z" tests="1" failures="0" errors="0" time="0.250">
+    <testcase name="GET after cleanup returns observed 404" time="0.250" classname="99CleanupVerifyRuntimeBookingWasDeleted"/>
+  </testsuite>
+</testsuites>
