@@ -115,4 +115,4 @@ The 4.90.6 sample catalog matched all fixture data used by the ten tests, so no 
 - Cypress: 10 executed, 10 passed, 0 failed
 - Full-run duration: 21 seconds
 
-A separate fresh-volume validation of the non-interactive bootstrap also completed successfully and produced 10/10 Cypress passes before the CI workflow was pushed. GitHub Actions status must still be confirmed from the actual hosted workflow run.
+A separate fresh-volume validation of the non-interactive bootstrap also completed successfully and produced 10/10 Cypress passes. GitHub Actions then reproduced the result with 10 executed, 10 passed, and 0 failed on the [canonical hosted run](https://github.com/ndo-fer/software-qa-portfolio/actions/runs/31572314690).

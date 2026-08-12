@@ -1,160 +1,60 @@
 # Fernando Michael Panjaitan — Software QA Portfolio
 
 [![Cypress CI](https://github.com/ndo-fer/software-qa-portfolio/actions/workflows/cypress.yml/badge.svg?branch=main)](https://github.com/ndo-fer/software-qa-portfolio/actions/workflows/cypress.yml)
-[![Cypress](https://img.shields.io/badge/Cypress-regression-17202C?logo=cypress&logoColor=white)](01-ecommerce-qa-case-study/automation/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-automation-3178C6?logo=typescript&logoColor=white)](01-ecommerce-qa-case-study/automation/)
+[![Postman API CI](https://github.com/ndo-fer/software-qa-portfolio/actions/workflows/postman-api.yml/badge.svg?branch=main)](https://github.com/ndo-fer/software-qa-portfolio/actions/workflows/postman-api.yml)
 
-Quality Assurance / Software Tester portfolio demonstrating manual QA, requirement and test-case design, regression testing, TypeScript automation, QA documentation, controlled test environments, and continuous integration.
+Quality Assurance / Software Tester portfolio demonstrating manual QA, requirement analysis, test design, evidence-based execution, Cypress automation, REST API testing, controlled environments, and continuous integration.
 
-## Portfolio Snapshot
+## Portfolio at a Glance
 
-| Area | Result |
-|---|---|
-| Structured discovery | 44 actions |
-| Approved requirements | 27 |
-| Test scenarios | 39 |
-| Selected test cases | 24 |
-| Manual execution | 24/24 PASS |
-| Cypress regression | 10/10 PASS |
-| CI | GitHub Actions — verified PASS |
-| Controlled environment | Dockerized nopCommerce + SQL Server |
+| Project | Focus | Evidence | Status |
+|---|---|---|---|
+| [E-Commerce QA](01-ecommerce-qa-case-study/README.md) | Manual QA + Cypress + Docker + CI | 24/24 manual; 10/10 automation | **COMPLETE** |
+| [Legacy ERP Migration](02-legacy-erp-analysis-case-study/README.md) | Analysis + requirements + QA design | 19 FR; 30 scenarios; 16 cases | **COMPLETE** |
+| [REST API Testing](03-api-testing-case-study/README.md) | Postman + contract + CRUD + CI | 19 requests; 47/47 assertions | **COMPLETE** |
 
-## Featured Project — E-Commerce QA Case Study
+## Project 1 — E-Commerce QA Case Study
 
-**System:** nopCommerce
+An end-to-end nopCommerce case study covering requirement discovery, 24/24 successful manual tests, 10/10 Cypress regression checks, a reproducible Docker Compose environment, and verified GitHub Actions execution.
 
-**Status:** COMPLETE
+- Manual QA: **24/24 PASS**
+- Cypress: **10/10 PASS**
+- Controlled environment: nopCommerce 4.90.6 + SQL Server 2022 CU20 Express
+- GitHub Actions: **PASS** — [canonical run](https://github.com/ndo-fer/software-qa-portfolio/actions/runs/31572314690)
 
-**Purpose:** A clean-room, end-to-end QA case study that moves from uncertain product behavior to an approved test baseline, live manual validation, focused regression automation, and repeatable CI execution.
+[View the full Project 1 case study](01-ecommerce-qa-case-study/README.md)
 
-### QA Workflow
+## Project 2 — Legacy ERP Migration Analysis
 
-`Product discovery` → `Requirement analysis` → `Approved requirements` → `Risk-based scenarios` → `Selected detailed test cases` → `Manual execution` → `Automation candidate selection` → `Cypress regression` → `Controlled Docker environment` → `GitHub Actions CI`
+A clean-room migration-analysis case study that reconstructs 30 fictional legacy capabilities into 13 business rules, 19 functional requirements, 30 QA scenarios, and 16 selected detailed cases.
 
-### What This Project Demonstrates
+**DESIGN ONLY — no execution result is claimed.**
 
-- Deriving testable requirements from incomplete product information.
-- Separating observation, assumption, requirement, open-question, and defect reasoning.
-- Exploratory, risk-based, state-transition, and business-rule test design.
-- Frontend manual regression with traceable execution evidence.
-- Cypress regression automation in TypeScript with isolated test setup.
-- Mathematical assertions for cart quantity, subtotal, and total behavior.
-- A Docker-based controlled test environment with sample catalog data.
-- CI provisioning from a fresh environment instead of relying on persistent state.
-- Traceability from approved requirements through scenarios, manual cases, and automation.
+[View the full Project 2 case study](02-legacy-erp-analysis-case-study/README.md)
 
-## Environment Strategy
+## Project 3 — REST API Testing
 
-| Stage | Environment | Decision and Result |
-|---|---|---|
-| Manual validation | Official public nopCommerce Demo | 24 selected test cases executed; 24 PASS. |
-| Initial automation target | Official public nopCommerce Demo | Cypress requests received HTTP 403 before product assertions could execute. This was treated as an externally controlled environment constraint. |
-| Engineering decision | Public Demo | No anti-bot bypass or assertion weakening was attempted. |
-| Controlled automation | nopCommerce 4.90.6 + SQL Server 2022 CU20 Express | Docker Compose provided a repeatable local application and sample catalog; 10/10 Cypress tests passed. |
-| Continuous integration | GitHub-hosted Ubuntu 24.04 runner | A fresh application and database are provisioned, installed, validated, and tested for each workflow execution. |
+An executable Restful Booker suite covering authenticated CRUD, negative authorization, dynamic resource chaining, contract validation, local Postman CLI execution, and GitHub Actions CI.
 
-This separation preserves the validity of the successful public manual execution while giving automation a controlled, reproducible target.
+- Designed API tests: **16**
+- Collection requests: **19**
+- Assertions: **47/47 PASS**
+- JSON Schema checks: **2**
+- Local Postman CLI: **PASS**
+- GitHub Actions: **PASS** — [canonical run](https://github.com/ndo-fer/software-qa-portfolio/actions/runs/31580305791)
 
-## Key Artifacts
+[View the full Project 3 case study](03-api-testing-case-study/README.md)
 
-| Artifact | Purpose |
-|---|---|
-| [Approved requirement baseline](01-ecommerce-qa-case-study/docs/01-product-requirements.md) | 27 approved, testable requirements derived from structured discovery. |
-| [Risk-based test scenarios](01-ecommerce-qa-case-study/docs/02-test-scenarios.md) | 39 concise scenarios with requirement coverage and priority. |
-| [Selected detailed test cases](01-ecommerce-qa-case-study/test-cases/03-selected-test-cases.xlsx) | 24 execution-ready cases selected by risk and regression value. |
-| [Live test execution workbook](01-ecommerce-qa-case-study/test-cases/04-live-test-execution.xlsx) | Final manual results, actual outcomes, and evidence references. |
-| [Live execution summary](01-ecommerce-qa-case-study/docs/04-live-execution-summary.md) | Concise report of the 24/24 PASS manual execution. |
-| [Cypress automation](01-ecommerce-qa-case-study/automation/) | TypeScript suite, traceability, test data, and execution guidance. |
-| [Controlled test environment](01-ecommerce-qa-case-study/test-environment/) | Reproducible nopCommerce and SQL Server deployment using Docker Compose. |
-| [GitHub Actions workflow](.github/workflows/cypress.yml) | Fresh-environment provisioning, validation, and regression execution. |
+## Skills Demonstrated
 
-## Automation Summary
+Manual QA · Test Design · Requirement Analysis · Cypress · REST API / Postman · SQL · Docker · Git / GitHub · GitHub Actions · QA Documentation
 
-The suite contains 10 selected regression checks across:
+## About
 
-- Authentication
-- Product Discovery
-- Product Detail
-- Cart
-
-Each test establishes its own preconditions and maps to a manual test case, scenario, and approved requirement. The suite avoids credentials, persistent accounts, execution-order dependencies, fixed waits, and checkout side effects.
-
-Manual coverage is intentionally retained for account creation and authenticated flows, broader product discovery, cart synchronization and removal, checkout, and order completion. See the [automation README](01-ecommerce-qa-case-study/automation/README.md) for full traceability and execution details.
-
-## GitHub Actions CI
-
-`Push / pull request` → `GitHub-hosted Ubuntu runner` → `Docker Compose` → `SQL Server + nopCommerce` → `Automated first-run installation` → `Sample catalog validation` → `TypeScript check` → `Cypress regression` → `Failure screenshots when necessary`
-
-Verified CI run: [10/10 Cypress tests passed on GitHub Actions](https://github.com/ndo-fer/software-qa-portfolio/actions/runs/31572314690).
-
-## Second Project — Legacy ERP Migration Analysis
-
-**Status:** COMPLETE
-
-Clean-room legacy ERP migration analysis from feature reconstruction through stakeholder decisions, Mini SRD, requirement traceability, and risk-based QA design. The fictional Northstar Components Manufacturing case traces 30 representative legacy capabilities into 13 business rules, 19 testable requirements, 30 QA scenarios, and 16 selected design-only test cases.
-
-| Artifact | Purpose |
-|---|---|
-| [Project 2 overview](02-legacy-erp-analysis-case-study/README.md) | Scope, clean-room approach, progression, and final metrics. |
-| [Mini SRD](02-legacy-erp-analysis-case-study/docs/07-mini-srd.md) | Fictional V1 business rules and functional requirement baseline. |
-| [Requirement traceability](02-legacy-erp-analysis-case-study/docs/08-requirement-traceability.md) | Links requirements to decisions, rules, and legacy capabilities. |
-| [QA test scenarios](02-legacy-erp-analysis-case-study/docs/09-qa-test-scenarios.md) | Risk-based coverage for all 19 requirements. |
-| [Selected ERP test cases](02-legacy-erp-analysis-case-study/test-cases/10-selected-erp-test-cases.xlsx) | 16 detailed, implementation-agnostic cases; not executed. |
-
-## Third Project — REST API Testing
-
-**Status:** COMPLETE
-
-Executable Restful Booker API QA suite covering authenticated CRUD, negative authorization, schema validation, dynamic resource chaining, Postman CLI execution, and GitHub Actions CI.
-
-| Metric | Result |
-|---|---:|
-| Designed API tests | 16 |
-| Collection requests | 19 |
-| Assertions | 47/47 PASS |
-| JSON Schema checks | 2 |
-| Local Postman CLI | PASS |
-| GitHub Actions CI | [PASS](https://github.com/ndo-fer/software-qa-portfolio/actions/runs/31580305791) |
-
-- [Project 3 README](03-api-testing-case-study/README.md)
-- [API Test Design](03-api-testing-case-study/docs/01-api-test-design.md)
-- [Postman Collection](03-api-testing-case-study/postman/restful-booker.postman_collection.json)
-- [JUnit Local Report](03-api-testing-case-study/reports/postman-cli-junit.xml)
-- [GitHub Actions workflow](.github/workflows/postman-api.yml)
-
-## Project Structure
-
-```text
-software-qa-portfolio/
-├── .github/workflows/
-├── 01-ecommerce-qa-case-study/
-│   ├── docs/
-│   ├── test-cases/
-│   ├── evidence/
-│   ├── automation/
-│   └── test-environment/
-├── 02-legacy-erp-analysis-case-study/
-├── 03-api-testing-case-study/
-└── 04-selenium-case-study/
-```
-
-## Portfolio Projects
-
-| Project | Status |
-|---|---|
-| 1. E-Commerce QA Case Study | **COMPLETE** |
-| 2. Legacy ERP Migration Analysis | **COMPLETE** |
-| 3. REST API Testing | **COMPLETE** |
-| 4. Selenium Case Study | **Optional / Future** |
-
-## About Me
-
-I am **Fernando Michael Panjaitan**, a Quality Assurance / Software Tester focused on reliable software delivery through clear requirements, thoughtful test design, evidence-based execution, and maintainable regression coverage.
-
-My experience themes include manual and automation testing, test-case design, QA documentation, requirement clarification, Cypress and Selenium exposure, Git/GitHub workflows, SQL and database familiarity, and cross-functional collaboration.
+I am Fernando Michael Panjaitan, a Quality Assurance / Software Tester focused on reliable delivery through clear requirements, thoughtful test design, traceable evidence, and maintainable regression coverage.
 
 [Connect with me on LinkedIn](https://linkedin.com/in/fernando-m-p)
 
 ## Confidentiality
 
-This is a clean-room portfolio built with public/demo systems and synthetic test data. It contains no employer source code, private internal company artifacts, proprietary documentation, real customer data, passwords, or credentials.
+This clean-room portfolio uses public/demo systems, fictional scenarios, and synthetic data. It contains no employer source code, private company artifacts, proprietary documentation, real customer data, passwords, or credentials.

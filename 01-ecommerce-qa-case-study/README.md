@@ -1,48 +1,61 @@
-# E-Commerce QA Case Study
+# nopCommerce E-Commerce QA Case Study
 
-## 1. Context
+**Status:** COMPLETE — Manual QA, Cypress Automation, and CI
 
-This clean-room case study will demonstrate requirement analysis, exploratory testing, formal test design, manual execution, defect reasoning, regression planning, and—only in a later sprint—UI automation.
+## Project Summary
 
-## 2. Objective
+This clean-room case study follows a complete QA workflow against the public nopCommerce demo: structured product discovery, requirement and risk-based test design, live manual execution, regression selection, Cypress automation, a controlled Docker target, and verified GitHub Actions execution.
 
-Build an interview-defensible QA case study whose conclusions are traceable to approved requirements, public evidence, explicit human decisions, and genuine test observations.
+## Final Metrics
 
-## 3. System Under Test
+| Evidence | Result |
+|---|---:|
+| Structured discovery | 44 actions |
+| Approved requirements | 27 |
+| Test scenarios | 39 |
+| Selected manual cases | 24 |
+| Manual execution | 24/24 PASS |
+| Cypress regression | 10/10 PASS |
+| GitHub Actions | 10/10 PASS |
 
-- **Application:** nopCommerce Demo storefront
-- **Frontend:** <https://demo.nopcommerce.com/>
-- **Official demo information:** <https://www.nopcommerce.com/en/demo>
-- **Selection status:** Explicitly selected by the portfolio owner for Sprint 1
-- **Selection rationale:** The storefront provides broad e-commerce behavior across authentication, search, filtering, product configuration, cart, wishlist, comparison, and checkout.
+## QA Workflow
 
-## 4. Test-Environment Constraints
+`Discovery` → `Requirement baseline` → `Risk-based scenarios` → `Detailed test cases` → `Manual execution` → `Automation selection` → `Cypress` → `Controlled Docker environment` → `GitHub Actions`
 
-The nopCommerce demo is a shared public environment. The official demo page states that other users may change its data and that the environment resets to its original state every hour.
+## Environment Strategy
 
-Consequences for this case study:
+Manual execution succeeded against the public nopCommerce demo. Cypress traffic to that externally controlled target received HTTP 403 before product assertions could run; no anti-bot bypass or assertion weakening was attempted.
 
-- test data must be public-safe and disposable;
-- persistent users, carts, wishlists, orders, or configuration cannot be assumed;
-- required preconditions must be checked at the start of each session;
-- observations must identify the session context and time;
-- unexpected state changes must be distinguished from reproducible product behavior;
-- environment instability must not be reported as a product defect without supporting evidence.
+Automation therefore runs against a deterministic Docker Compose environment using nopCommerce 4.90.6 and Microsoft SQL Server 2022 CU20 Express. The sample catalog matches the suite’s test data and can be provisioned from a fresh environment locally or in CI.
 
-## 5. Expected-Behavior Evidence Rule
+## Key Artifacts
 
-Expected behavior will not be invented. It may be derived only from:
+- [Approved product requirements](docs/01-product-requirements.md)
+- [Risk-based test scenarios](docs/02-test-scenarios.md)
+- [Selected test cases](test-cases/03-selected-test-cases.xlsx)
+- [Live test execution workbook](test-cases/04-live-test-execution.xlsx)
+- [Live execution summary](docs/04-live-execution-summary.md)
+- [Cypress automation](automation/)
+- [Automation guide](automation/README.md)
+- [Controlled test environment](test-environment/)
+- [Environment and reproduction guide](test-environment/README.md)
 
-1. an approved portfolio requirement;
-2. clearly supported public product behavior; or
-3. an explicit human decision.
+## Automation and Execution Results
 
-If none of these sources establishes the expected behavior, the item will be marked **NEEDS CLARIFICATION** and will not be classified as a confirmed defect.
+The ten Cypress regression checks cover Authentication, Product Discovery, Product Detail, and Cart behavior.
 
-## 6. Sprint Status
+- Manual execution: **24/24 PASS**
+- Controlled local Cypress: **10/10 PASS**
+- GitHub Actions: **10/10 PASS** — [canonical hosted run](https://github.com/ndo-fer/software-qa-portfolio/actions/runs/31572314690)
 
-Repository setup and target selection are complete. Product requirements, exploratory observations, and test scenarios have not yet been written and remain subject to the playbook's human checkpoints.
+For reproduction, use the [controlled-environment guide](test-environment/README.md) and [automation guide](automation/README.md); they contain the setup, run, configuration, and troubleshooting details.
 
-## 7. Confidentiality Notice
+## Limitations
 
-This project uses only a public demo application and synthetic, non-confidential data. It contains no employer source code, credentials, internal documents, private screenshots, customer information, or proprietary business rules.
+- The public demo is shared, externally controlled, and periodically reset.
+- Public-demo Cypress traffic was blocked with HTTP 403; no anti-bot bypass was used.
+- The first automation suite intentionally excludes state-heavy account-creation and checkout flows, which remain covered by manual testing.
+
+## Confidentiality
+
+This project uses only public systems, synthetic data, and independently created clean-room artifacts. It contains no private employer/client source code, credentials, screenshots, documentation, or customer data.

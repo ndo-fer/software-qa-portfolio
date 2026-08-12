@@ -4,7 +4,7 @@
 
 **Status:** COMPLETE — REST API Testing and CI
 
-This compact portfolio project uses Restful Booker because it exposes a practical HTTP surface for health checks, authentication, booking CRUD, negative authorization, and response-contract testing. Its public, resettable environment also makes test isolation an explicit part of the QA design.
+This compact portfolio project uses [Restful Booker](https://restful-booker.herokuapp.com/) because it exposes a practical HTTP surface for health checks, authentication, booking CRUD, negative authorization, and response-contract testing. The public homepage links to the API documentation and published practice credentials. Its public, resettable environment also makes test isolation an explicit part of the QA design.
 
 ## Coverage
 
