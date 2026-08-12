@@ -34,8 +34,8 @@ jobs:
             collection run
             03-api-testing-case-study/postman/restful-booker.postman_collection.json
             --environment 03-api-testing-case-study/postman/restful-booker.postman_environment.json
-            --env-var "username=${{ secrets.RESTFUL_BOOKER_USERNAME }}"
-            --env-var "password=${{ secrets.RESTFUL_BOOKER_PASSWORD }}"
+            --env-var username=${{ secrets.RESTFUL_BOOKER_USERNAME }}
+            --env-var password=${{ secrets.RESTFUL_BOOKER_PASSWORD }}
             --reporters cli,junit
             --reporter-junit-export 03-api-testing-case-study/reports/postman-cli-junit-ci.xml
 
