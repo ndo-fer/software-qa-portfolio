@@ -87,6 +87,20 @@ Manual coverage is intentionally retained for account creation and authenticated
 
 Verified CI run: [10/10 Cypress tests passed on GitHub Actions](https://github.com/ndo-fer/software-qa-portfolio/actions/runs/31572314690).
 
+## Second Project — Legacy ERP Migration Analysis
+
+**Status:** COMPLETE
+
+Clean-room legacy ERP migration analysis from feature reconstruction through stakeholder decisions, Mini SRD, requirement traceability, and risk-based QA design. The fictional Northstar Components Manufacturing case traces 30 representative legacy capabilities into 13 business rules, 19 testable requirements, 30 QA scenarios, and 16 selected design-only test cases.
+
+| Artifact | Purpose |
+|---|---|
+| [Project 2 overview](02-legacy-erp-analysis-case-study/README.md) | Scope, clean-room approach, progression, and final metrics. |
+| [Mini SRD](02-legacy-erp-analysis-case-study/docs/07-mini-srd.md) | Fictional V1 business rules and functional requirement baseline. |
+| [Requirement traceability](02-legacy-erp-analysis-case-study/docs/08-requirement-traceability.md) | Links requirements to decisions, rules, and legacy capabilities. |
+| [QA test scenarios](02-legacy-erp-analysis-case-study/docs/09-qa-test-scenarios.md) | Risk-based coverage for all 19 requirements. |
+| [Selected ERP test cases](02-legacy-erp-analysis-case-study/test-cases/10-selected-erp-test-cases.xlsx) | 16 detailed, implementation-agnostic cases; not executed. |
+
 ## Project Structure
 
 ```text
@@ -107,7 +121,7 @@ software-qa-portfolio/
 
 | Project | Status |
 |---|---|
-| 2. Legacy ERP Migration Analysis | **Planned / Next** |
+| 2. Legacy ERP Migration Analysis | **COMPLETE** |
 | 3. REST API Testing | **Planned** |
 | 4. Selenium Case Study | **Optional / Future** |
 

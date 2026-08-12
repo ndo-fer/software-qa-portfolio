@@ -1,6 +1,6 @@
 # Legacy ERP Migration Analysis
 
-**Status:** Sprint 2 — Requirement Baseline Complete
+**Status:** COMPLETE — Legacy ERP Analysis and QA Design
 
 This clean-room case study examines how a long-running desktop ERP could be understood before migration to a browser-based system. It uses the fictional **Northstar Components Manufacturing**, a mid-sized industrial-component manufacturer, and synthetic descriptions throughout.
 
@@ -16,8 +16,28 @@ The selected scope covers Purchasing, Sales, Inventory, Manufacturing, and suppo
 - [Stakeholder Decision Baseline](docs/06-stakeholder-decision-baseline.md) — 15 selected high-impact questions translated into fictional V1 decisions or an explicit deferral.
 - [Mini System Requirements Document](docs/07-mini-srd.md) — the compact target-system baseline with 13 business rules and 19 functional requirements.
 - [Requirement Traceability](docs/08-requirement-traceability.md) — end-to-end mappings and a coverage classification for all 30 Sprint 1 capabilities.
+- [QA Test Scenarios](docs/09-qa-test-scenarios.md) — 30 risk-based scenarios covering all 19 approved requirements.
+- [Selected ERP Test Cases](test-cases/10-selected-erp-test-cases.xlsx) — 16 detailed design-only cases with scenario and requirement coverage.
 
-Sprint 1 reconstructs the analytical baseline. Sprint 2 converts selected open questions into an internally consistent fictional V1 requirement baseline. Test scenarios and test cases are intentionally reserved for a later sprint.
+## Project Progression
+
+- **Sprint 1 — Legacy reconstruction:** 30 representative capabilities, four As-Is working models, 20 open questions, and preliminary migration proposals.
+- **Sprint 2 — Requirement baseline:** 15 selected decision points, 13 business rules, 19 functional requirements, and end-to-end requirement traceability.
+- **Sprint 3 — QA design:** 30 risk-based scenarios and 16 selected detailed test cases covering quantity, state, authorization, cross-module, and data-integrity risks.
+
+## Final Metrics
+
+| Analysis Layer | Result |
+|---|---:|
+| Legacy capabilities | 30 |
+| Original open questions | 20 |
+| Selected decision points | 15 |
+| Business rules | 13 |
+| Functional requirements | 19 |
+| QA scenarios | 30 |
+| Selected detailed test cases | 16 |
+
+The test cases are **DESIGN ONLY** and were not executed against a real or fictional deployed application. No execution outcome, screenshot, or evidence is claimed.
 
 ## Confidentiality Approach
 
