@@ -61,6 +61,18 @@ Verified controlled-local result:
 - Environment errors: 0
 - Duration: 21 seconds
 
+## GitHub Actions CI
+
+`.github/workflows/cypress.yml` runs on GitHub-hosted `ubuntu-24.04` for pushes and pull requests to `main`, plus manual dispatch. Each run creates an empty Docker Compose project, performs the first-run nopCommerce installation non-interactively with ephemeral credentials and sample data, waits for the controlled storefront and catalog, validates TypeScript, and runs these same ten Cypress tests with `cypress-io/github-action@v7`.
+
+CI does not use a preinstalled database, committed volume, self-hosted runner, Cypress Cloud, or manual setup step. If Cypress fails, available screenshots are uploaded for diagnosis; provisioning failures print Docker Compose status and logs. The workflow must remain failing when environment setup, TypeScript, or a product assertion fails.
+
+Execution distinctions:
+
+- Local controlled environment: Docker Compose → nopCommerce 4.90.6 sample store → 10/10 Cypress passes.
+- Public demo: manual execution succeeded, but Cypress receives HTTP 403; no anti-bot bypass is attempted.
+- CI: fresh GitHub-hosted runner → Docker Compose → automated sample-data bootstrap → the same Cypress regression suite. Refer to the actual GitHub Actions run for status.
+
 ## Install
 
 From `01-ecommerce-qa-case-study/automation/`:

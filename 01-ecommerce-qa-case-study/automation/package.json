@@ -6,6 +6,7 @@
   "scripts": {
     "test": "cypress run",
     "test:e2e": "cypress run",
+    "typecheck": "tsc --noEmit",
     "cy:open": "cypress open"
   },
   "devDependencies": {

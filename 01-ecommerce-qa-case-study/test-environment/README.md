@@ -65,6 +65,20 @@ npm test
 
 The public demo is an optional smoke target and is known to return HTTP 403 to Cypress. Do not add anti-bot bypass logic.
 
+## Automated CI Bootstrap
+
+`scripts/bootstrap-ci.sh` provisions a fresh Compose project without browser interaction. It:
+
+1. starts the pinned SQL Server and nopCommerce services;
+2. waits for container health and the installation endpoint;
+3. submits the nopCommerce installer over HTTP with ephemeral credentials and sample data enabled;
+4. verifies the generated SQL Server configuration and restarts the storefront;
+5. waits for the installed homepage and checks the required sample catalog targets.
+
+All readiness loops are bounded. On failure the script prints Compose status and recent logs. CI credentials are generated per GitHub Actions run and are never committed.
+
+The GitHub-hosted workflow is `.github/workflows/cypress.yml` on `ubuntu-24.04`. It creates a fresh environment, runs the TypeScript check, executes the same ten Cypress tests through `cypress-io/github-action@v7`, uploads failure screenshots when present, and removes containers and volumes afterward.
+
 ## Reset
 
 To stop containers while retaining installed data:
@@ -100,3 +114,5 @@ The 4.90.6 sample catalog matched all fixture data used by the ten tests, so no 
 - Sample data: enabled
 - Cypress: 10 executed, 10 passed, 0 failed
 - Full-run duration: 21 seconds
+
+A separate fresh-volume validation of the non-interactive bootstrap also completed successfully and produced 10/10 Cypress passes before the CI workflow was pushed. GitHub Actions status must still be confirmed from the actual hosted workflow run.

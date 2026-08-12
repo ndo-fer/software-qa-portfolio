@@ -1,0 +1,72 @@
+name: Cypress controlled regression
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  cypress:
+    name: nopCommerce 4.90.6 / Cypress
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      COMPOSE_PROJECT_NAME: nopcommerce-ci
+      NOPCOMMERCE_PORT: "8080"
+      CYPRESS_BASE_URL: http://localhost:8080
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Generate ephemeral CI credentials
+        shell: bash
+        run: |
+          echo "MSSQL_SA_PASSWORD=CiSql!$(openssl rand -hex 24)Aa1" >> "$GITHUB_ENV"
+          echo "NOP_ADMIN_EMAIL=ci-admin-${GITHUB_RUN_ID}@example.invalid" >> "$GITHUB_ENV"
+          echo "NOP_ADMIN_PASSWORD=CiAdmin!$(openssl rand -hex 24)Aa1" >> "$GITHUB_ENV"
+
+      - name: Bootstrap controlled nopCommerce environment
+        shell: bash
+        run: bash 01-ecommerce-qa-case-study/test-environment/scripts/bootstrap-ci.sh
+
+      - name: Install Cypress dependencies
+        uses: cypress-io/github-action@v7
+        with:
+          working-directory: 01-ecommerce-qa-case-study/automation
+          runTests: false
+
+      - name: Validate TypeScript
+        working-directory: 01-ecommerce-qa-case-study/automation
+        run: npm run typecheck
+
+      - name: Run Cypress regression suite
+        uses: cypress-io/github-action@v7
+        with:
+          working-directory: 01-ecommerce-qa-case-study/automation
+          install: false
+
+      - name: Upload Cypress failure screenshots
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-failure-screenshots
+          path: 01-ecommerce-qa-case-study/automation/cypress/screenshots/
+          if-no-files-found: ignore
+
+      - name: Print Docker diagnostics
+        if: failure()
+        working-directory: 01-ecommerce-qa-case-study/test-environment
+        run: |
+          docker compose ps
+          docker compose logs --no-color --tail 300
+
+      - name: Stop controlled environment
+        if: always()
+        working-directory: 01-ecommerce-qa-case-study/test-environment
+        run: docker compose down --volumes
