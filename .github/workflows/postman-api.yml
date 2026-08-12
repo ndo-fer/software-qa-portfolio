@@ -1,0 +1,49 @@
+name: Postman API
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "03-api-testing-case-study/**"
+      - ".github/workflows/postman-api.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "03-api-testing-case-study/**"
+      - ".github/workflows/postman-api.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  api-tests:
+    name: Run Postman API regression suite
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run local Postman collection
+        uses: postmanlabs/postman-cli-action@v1
+        with:
+          postman-cli-version: "1.45.0"
+          command: >-
+            collection run
+            03-api-testing-case-study/postman/restful-booker.postman_collection.json
+            --environment 03-api-testing-case-study/postman/restful-booker.postman_environment.json
+            --env-var "username=${{ secrets.RESTFUL_BOOKER_USERNAME }}"
+            --env-var "password=${{ secrets.RESTFUL_BOOKER_PASSWORD }}"
+            --reporters cli,junit
+            --reporter-junit-export 03-api-testing-case-study/reports/postman-cli-junit-ci.xml
+
+      - name: Upload Postman JUnit report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: postman-api-junit
+          path: 03-api-testing-case-study/reports/postman-cli-junit-ci.xml
+          if-no-files-found: warn
+          retention-days: 14
