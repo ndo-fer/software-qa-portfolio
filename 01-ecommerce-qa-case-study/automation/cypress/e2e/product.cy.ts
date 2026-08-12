@@ -5,8 +5,12 @@ describe("Product detail regression", () => {
     cy.startAnonymousSession();
     cy.visit(testData.simpleProduct.path);
 
-    cy.get(".product-name h1").should("have.text", testData.simpleProduct.title);
-    cy.get(".sku .value").should("have.text", testData.simpleProduct.sku);
+    cy.get(".product-name h1").invoke("text").then((title) => {
+      expect(title.trim()).to.equal(testData.simpleProduct.title);
+    });
+    cy.get(".sku .value").invoke("text").then((sku) => {
+      expect(sku.trim()).to.equal(testData.simpleProduct.sku);
+    });
     cy.get(".product-price").should("contain.text", testData.simpleProduct.price);
     cy.get("input.qty-input").should("be.visible").and("have.value", "1");
     cy.get(testData.simpleProduct.addButton).should("be.visible").and("be.enabled");

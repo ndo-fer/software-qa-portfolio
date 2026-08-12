@@ -9,6 +9,7 @@
     "cy:open": "cypress open"
   },
   "devDependencies": {
+    "@types/node": "24.10.1",
     "cypress": "15.20.1",
     "typescript": "7.0.2"
   }

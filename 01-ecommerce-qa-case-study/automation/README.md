@@ -48,7 +48,18 @@ Because the portfolio does not control nopCommerce source code, no dedicated `da
 
 ## Controlled Local Execution
 
-A controlled local nopCommerce target is the preferred deterministic execution environment for this suite. Local execution requires the official nopCommerce application, its database, and sample catalog data. Record the deployed version, compatibility mapping, and final Cypress result here after the local environment has been created and verified.
+A controlled local nopCommerce target is the preferred deterministic execution environment for this suite. The verified environment uses nopCommerce `4.90.6`, Microsoft SQL Server 2022 CU20 Express, and the official sample catalog at `http://localhost:8080`.
+
+The local sample data contains the same simple product, configurable product and options, search keyword, Shoes category, and Nike manufacturer used by the public-demo fixture, so no fixture values were changed. The local cart quantity control recalculates after the field loses focus; the test uses Cypress retry-ability and retains the approved mathematical subtotal and total assertions. Product text assertions normalize template whitespace without weakening expected values.
+
+Verified controlled-local result:
+
+- TypeScript: PASS
+- Cypress tests: 10 executed
+- Passed: 10
+- Failed: 0
+- Environment errors: 0
+- Duration: 21 seconds
 
 ## Install
 
@@ -63,6 +74,13 @@ npm install
 Run all specs headlessly:
 
 ```bash
+npx cypress run
+```
+
+The configured default target is the controlled local store at `http://localhost:8080`. To invoke the optional public smoke target explicitly:
+
+```powershell
+$env:CYPRESS_BASE_URL = "https://demo.nopcommerce.com"
 npx cypress run
 ```
 

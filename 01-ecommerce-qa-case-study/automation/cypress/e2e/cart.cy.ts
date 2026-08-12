@@ -13,20 +13,16 @@ describe("Cart regression", () => {
       const unitPrice = parseMoney(unitPriceText);
       cy.get(".product-subtotal").invoke("text").then((initialSubtotalText) => {
         const initialSubtotal = parseMoney(initialSubtotalText);
-        cy.get("input.qty-input").clear().type("2");
-        cy.get("#updatecart, button[name='updatecart'], button.update-cart-button")
-          .filter(":visible")
-          .first()
-          .click();
+        cy.get("input.qty-input").clear().type("2").blur();
 
         cy.get("input.qty-input").should("have.value", "2");
-        cy.get(".product-subtotal").invoke("text").then((updatedSubtotalText) => {
-          const updatedSubtotal = parseMoney(updatedSubtotalText);
-          expect(updatedSubtotal).to.equal(unitPrice * 2);
-          expect(updatedSubtotal).to.equal(initialSubtotal * 2);
-          cy.get(".order-total .value-summary").invoke("text").then((totalText) => {
-            expect(parseMoney(totalText)).to.equal(updatedSubtotal);
-          });
+        const expectedTotal = unitPrice * 2;
+        cy.get(".product-subtotal").should(($subtotal) => {
+          expect(parseMoney($subtotal.text())).to.equal(expectedTotal);
+          expect(parseMoney($subtotal.text())).to.equal(initialSubtotal * 2);
+        });
+        cy.get(".order-total .value-summary").should(($total) => {
+          expect(parseMoney($total.text())).to.equal(expectedTotal);
         });
       });
     });
