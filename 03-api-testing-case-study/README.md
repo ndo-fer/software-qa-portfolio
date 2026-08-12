@@ -45,7 +45,7 @@ This is local-file execution and requires no Postman Cloud API key.
 | Execution | Result | Requests | Assertions | Failed | Evidence |
 |---|---:|---:|---:|---:|---|
 | Local Postman CLI 1.45.0 | PASS | 19 | 47 | 0 | Committed JUnit report |
-| GitHub Actions, Ubuntu 24.04 | PASS | 19 | 47 | 0 | [Hosted run](https://github.com/ndo-fer/software-qa-portfolio/actions/runs/31580107425) and uploaded `postman-api-junit` artifact |
+| GitHub Actions, Ubuntu 24.04 | PASS | 19 | 47 | 0 | [Hosted run](https://github.com/ndo-fer/software-qa-portfolio/actions/runs/31580305791) and uploaded `postman-api-junit` artifact |
 
 The workflow uses `actions/checkout@v4`, the official `postmanlabs/postman-cli-action@v1`, and Postman CLI 1.45.0—the same version verified locally. It runs the committed collection and environment files without a Postman Cloud collection ID or API key. Repository secrets are injected as runtime environment variables, and the generated CI JUnit report is uploaded with `actions/upload-artifact@v4` even when a test step fails.
 

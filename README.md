@@ -114,7 +114,7 @@ Executable Restful Booker API QA suite covering authenticated CRUD, negative aut
 | Assertions | 47/47 PASS |
 | JSON Schema checks | 2 |
 | Local Postman CLI | PASS |
-| GitHub Actions CI | [PASS](https://github.com/ndo-fer/software-qa-portfolio/actions/runs/31580107425) |
+| GitHub Actions CI | [PASS](https://github.com/ndo-fer/software-qa-portfolio/actions/runs/31580305791) |
 
 - [Project 3 README](03-api-testing-case-study/README.md)
 - [API Test Design](03-api-testing-case-study/docs/01-api-test-design.md)
