@@ -1,0 +1,15 @@
+{
+  "name": "nopcommerce-portfolio-regression",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Cypress regression and smoke coverage for the nopCommerce QA portfolio case study.",
+  "scripts": {
+    "test": "cypress run",
+    "test:e2e": "cypress run",
+    "cy:open": "cypress open"
+  },
+  "devDependencies": {
+    "cypress": "15.20.1",
+    "typescript": "7.0.2"
+  }
+}

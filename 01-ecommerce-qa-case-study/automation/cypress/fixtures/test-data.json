@@ -1,0 +1,43 @@
+{
+  "knownSearchKeyword": "computer",
+  "zeroResultPrefix": "zzqaportfolio",
+  "protectedCustomerPath": "/customer/info",
+  "simpleProduct": {
+    "path": "/digital-storm-vanquish-custom-performance-pc",
+    "title": "Digital Storm VANQUISH Custom Performance PC",
+    "sku": "DS_VA3_PC",
+    "price": "$1,259.00",
+    "addButton": "#add-to-cart-button-2"
+  },
+  "configurableProduct": {
+    "path": "/build-your-own-computer",
+    "addButton": "#add-to-cart-button-1",
+    "configurationA": {
+      "processor": "2.5 GHz Intel Pentium Dual-Core E2200 [+$15.00]",
+      "ram": "8GB [+$60.00]",
+      "hddSelector": "#product_attribute_3_7",
+      "hddSummary": "HDD: 400 GB [+$100.00]",
+      "osSelector": "#product_attribute_4_9",
+      "osSummary": "OS: Vista Premium [+$60.00]",
+      "softwareSelector": "#product_attribute_5_10",
+      "softwareSummary": "Software: Microsoft Office [+$50.00]"
+    },
+    "configurationB": {
+      "processor": "2.2 GHz Intel Pentium Dual-Core E2200",
+      "ram": "4GB [+$20.00]",
+      "hddSelector": "#product_attribute_3_6",
+      "hddSummary": "HDD: 320 GB",
+      "osSelector": "#product_attribute_4_8",
+      "osSummary": "OS: Vista Home [+$50.00]",
+      "softwareSelector": "#product_attribute_5_10",
+      "softwareSummary": "Software: Microsoft Office [+$50.00]"
+    }
+  },
+  "manufacturerFilter": {
+    "categoryPath": "/shoes",
+    "name": "Nike",
+    "checkboxSelector": "#attribute-manufacturer-3",
+    "labelSelector": "label[for='attribute-manufacturer-3']",
+    "queryValue": "ms=3"
+  }
+}
