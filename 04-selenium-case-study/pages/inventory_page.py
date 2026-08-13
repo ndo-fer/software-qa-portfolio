@@ -2,7 +2,9 @@ from decimal import Decimal
 
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.remote.webelement import WebElement
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
 
 from pages.base_page import BasePage
@@ -19,7 +21,9 @@ class InventoryPage(BasePage):
     CART_LINK = (By.CSS_SELECTOR, '[data-test="shopping-cart-link"]')
     CART_BADGE = (By.CSS_SELECTOR, '[data-test="shopping-cart-badge"]')
     MENU_BUTTON = (By.ID, "react-burger-menu-btn")
+    MENU_WRAP = (By.CSS_SELECTOR, ".bm-menu-wrap")
     LOGOUT_LINK = (By.CSS_SELECTOR, '[data-test="logout-sidebar-link"]')
+    LOGIN_USERNAME = (By.CSS_SELECTOR, '[data-test="username"]')
 
     def wait_until_loaded(self) -> None:
         self.wait_for_url_contains("/inventory.html")
@@ -45,10 +49,18 @@ class InventoryPage(BasePage):
 
     def add_product(self, product_name: str) -> None:
         self._item(product_name)
-        self.click(self._product_control("add-to-cart", product_name))
+        add_control = self._product_control("add-to-cart", product_name)
+        remove_control = self._product_control("remove", product_name)
+        self.click(add_control)
+        self.clickable(remove_control)
+        self.wait.until(EC.invisibility_of_element_located(add_control))
 
     def remove_product(self, product_name: str) -> None:
-        self.click(self._product_control("remove", product_name))
+        remove_control = self._product_control("remove", product_name)
+        add_control = self._product_control("add-to-cart", product_name)
+        self.click(remove_control)
+        self.clickable(add_control)
+        self.wait.until(EC.invisibility_of_element_located(remove_control))
 
     @property
     def cart_badge(self) -> str | None:
@@ -61,7 +73,27 @@ class InventoryPage(BasePage):
 
     def logout(self) -> None:
         self.click(self.MENU_BUTTON)
-        self.click(self.LOGOUT_LINK)
+        self._wait_for_menu_open_and_settled()
+        logout_link = self.clickable(self.LOGOUT_LINK)
+        logout_link.send_keys(Keys.ENTER)
+        self.wait.until(EC.url_to_be("https://www.saucedemo.com/"))
+        self.visible(self.LOGIN_USERNAME)
+
+    def _wait_for_menu_open_and_settled(self) -> None:
+        identity_transforms = {
+            "none",
+            "matrix(1, 0, 0, 1, 0, 0)",
+            "matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)",
+        }
+
+        def menu_is_settled(_driver):
+            menu_wrap = self.visible(self.MENU_WRAP)
+            return (
+                menu_wrap.get_attribute("aria-hidden") == "false"
+                and menu_wrap.value_of_css_property("transform") in identity_transforms
+            )
+
+        self.wait.until(menu_is_settled)
 
     def _item(self, product_name: str) -> WebElement:
         for item in self.all_present(self.ITEMS):
