@@ -81,7 +81,7 @@ jobs:
                       failure = case.find("error")
                   if failure is not None:
                       test_id = f"{case.get('classname')}::{case.get('name')}"
-                      detail = (failure.get("message") or failure.text or "pytest failure")
+                      detail = (failure.text or failure.get("message") or "pytest failure")[-6000:]
                       detail = detail.replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A")
                       print(f"::error title={test_id}::{detail}")
           PY
