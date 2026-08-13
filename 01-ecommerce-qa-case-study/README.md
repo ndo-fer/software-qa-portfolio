@@ -1,10 +1,10 @@
 # nopCommerce E-Commerce QA Case Study
 
-**Status:** COMPLETE — Manual QA, Cypress Automation, and CI
+**Status:** COMPLETE — Test Design, Live Execution Review, Cypress Automation, and CI
 
 ## Project Summary
 
-This clean-room case study follows a complete QA workflow against the public nopCommerce demo: structured product discovery, requirement and risk-based test design, live manual execution, regression selection, Cypress automation, a controlled Docker target, and verified GitHub Actions execution.
+This clean-room case study follows a QA workflow against the public nopCommerce demo: structured product discovery, requirement and risk-based test design, script-driven live browser execution with manual evidence review, regression selection, Cypress automation, a controlled Docker target, and verified GitHub Actions execution.
 
 ## Final Metrics
 
@@ -13,18 +13,18 @@ This clean-room case study follows a complete QA workflow against the public nop
 | Structured discovery | 44 actions |
 | Approved requirements | 27 |
 | Test scenarios | 39 |
-| Selected manual cases | 24 |
-| Manual execution | 24/24 PASS |
+| Selected detailed test cases | 24 |
+| Reviewed live execution | 24/24 PASS |
 | Cypress regression | 10/10 PASS |
 | GitHub Actions | 10/10 PASS |
 
 ## QA Workflow
 
-`Discovery` → `Requirement baseline` → `Risk-based scenarios` → `Detailed test cases` → `Manual execution` → `Automation selection` → `Cypress` → `Controlled Docker environment` → `GitHub Actions`
+`Discovery` → `Requirement baseline` → `Risk-based scenarios` → `Detailed test cases` → `Script-driven live execution` → `Evidence review` → `Automation selection` → `Cypress` → `Controlled Docker environment` → `GitHub Actions`
 
 ## Environment Strategy
 
-Manual execution succeeded against the public nopCommerce demo. Cypress traffic to that externally controlled target received HTTP 403 before product assertions could run; no anti-bot bypass or assertion weakening was attempted.
+Script-driven browser execution with manual evidence review succeeded against the public nopCommerce demo. Cypress traffic to that externally controlled target received HTTP 403 before product assertions could run; no anti-bot bypass or assertion weakening was attempted.
 
 Automation therefore runs against a deterministic Docker Compose environment using nopCommerce 4.90.6 and Microsoft SQL Server 2022 CU20 Express. The sample catalog matches the suite’s test data and can be provisioned from a fresh environment locally or in CI.
 
@@ -44,7 +44,7 @@ Automation therefore runs against a deterministic Docker Compose environment usi
 
 The ten Cypress regression checks cover Authentication, Product Discovery, Product Detail, and Cart behavior.
 
-- Manual execution: **24/24 PASS**
+- Reviewed live execution: **24/24 PASS**
 - Controlled local Cypress: **10/10 PASS**
 - GitHub Actions: **10/10 PASS** — [canonical hosted run](https://github.com/ndo-fer/software-qa-portfolio/actions/runs/31572314690)
 
@@ -54,7 +54,7 @@ For reproduction, use the [controlled-environment guide](test-environment/README
 
 - The public demo is shared, externally controlled, and periodically reset.
 - Public-demo Cypress traffic was blocked with HTTP 403; no anti-bot bypass was used.
-- The first automation suite intentionally excludes state-heavy account-creation and checkout flows, which remain covered by manual testing.
+- The first Cypress regression suite intentionally excludes state-heavy account-creation and checkout flows; those flows remain covered by the separate live execution set and evidence review.
 
 ## Confidentiality
 

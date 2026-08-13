@@ -2,7 +2,8 @@
 
 ## Environment
 - **Target URL:** https://demo.nopcommerce.com/
-- **Browser Environment:** Chrome 120 (undetected-chromedriver)
+- **Execution Mode:** Script-driven browser execution with manual evidence review
+- **Browser Environment:** Chrome 120 via undetected-chromedriver
 - **Execution Start:** 2026-08-12 05:15:49
 - **Execution End:** 2026-08-12 05:21:19
 - **Shared-Demo Notes:** Live public demo environment evaluated; state verified before each cart and checkout module flow.
