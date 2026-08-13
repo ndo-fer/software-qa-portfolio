@@ -1,60 +1,57 @@
-# Fernando Michael Panjaitan — Software QA Portfolio
+# Software QA Portfolio
 
 [![Cypress CI](https://github.com/ndo-fer/software-qa-portfolio/actions/workflows/cypress.yml/badge.svg?branch=main)](https://github.com/ndo-fer/software-qa-portfolio/actions/workflows/cypress.yml)
 [![Postman API CI](https://github.com/ndo-fer/software-qa-portfolio/actions/workflows/postman-api.yml/badge.svg?branch=main)](https://github.com/ndo-fer/software-qa-portfolio/actions/workflows/postman-api.yml)
 
-Quality Assurance / Software Tester portfolio demonstrating manual QA, requirement analysis, test design, evidence-based execution, Cypress automation, REST API testing, controlled environments, and continuous integration.
+QA portfolio by Fernando Michael Panjaitan, covering evidence-based manual testing, requirement traceability, UI and API automation, and reproducible CI execution. Each project uses public, fictional, or locally controlled systems and states its execution limits explicitly.
 
-## Portfolio at a Glance
+## Start Here
 
-| Project | Focus | Evidence | Status |
+1. [E-Commerce QA Case Study](01-ecommerce-qa-case-study/README.md)
+2. [Selenium Cross-Browser Automation](04-selenium-case-study/README.md)
+3. [REST API Testing](03-api-testing-case-study/README.md)
+
+## Portfolio Highlights
+
+- Traced 27 approved e-commerce requirements into 39 scenarios, 24 executed manual cases, and screenshot evidence.
+- Automated 10 Cypress regression checks against a reproducible nopCommerce Docker environment; local and hosted runs passed 10/10.
+- Built nine Selenium/pytest tests with Page Objects, explicit waits, isolated sessions, failure screenshots, and JUnit output.
+- Established Firefox as the Selenium CI gate at 9/9 while retaining Chrome as a transparent diagnostic target for an intermittent interaction limitation.
+- Implemented a Restful Booker Postman suite with 19 requests, 47 passing assertions, authenticated CRUD, schema checks, cleanup, and hosted CI.
+- Mapped a fictional legacy ERP migration through requirements, traceability, risk-based scenarios, and 16 design-only test cases.
+
+## Project Index
+
+| Project | Focus | Stack / Techniques | Evidence |
 |---|---|---|---|
-| [E-Commerce QA](01-ecommerce-qa-case-study/README.md) | Manual QA + Cypress + Docker + CI | 24/24 manual; 10/10 automation | **COMPLETE** |
-| [Legacy ERP Migration](02-legacy-erp-analysis-case-study/README.md) | Analysis + requirements + QA design | 19 FR; 30 scenarios; 16 cases | **COMPLETE** |
-| [REST API Testing](03-api-testing-case-study/README.md) | Postman + contract + CRUD + CI | 19 requests; 47/47 assertions | **COMPLETE** |
+| [E-Commerce QA Case Study](01-ecommerce-qa-case-study/README.md) | Requirement discovery, manual execution, regression automation | Cypress, TypeScript, Docker Compose, risk-based testing, GitHub Actions | 24/24 manual; 10/10 Cypress; [hosted run](https://github.com/ndo-fer/software-qa-portfolio/actions/runs/31572314690) |
+| [Selenium Cross-Browser Automation](04-selenium-case-study/README.md) | Isolated UI flows across authentication, inventory, cart, and checkout | Python 3.13, pytest, Selenium, Page Objects, explicit waits, JUnit | Firefox 9/9 gating; local Chrome 8/9 full-suite baseline; [diagnostic matrix](https://github.com/ndo-fer/software-qa-portfolio/actions/runs/31708257843) |
+| [REST API Testing](03-api-testing-case-study/README.md) | Authenticated CRUD, negative authorization, contracts, cleanup | Postman CLI, JSON Schema, dynamic test data, GitHub Actions | 19 requests; 47/47 assertions; [hosted run](https://github.com/ndo-fer/software-qa-portfolio/actions/runs/31580305791) |
+| [Legacy ERP Analysis](02-legacy-erp-analysis-case-study/README.md) | Clean-room migration analysis and QA design | Process mapping, requirements, traceability, risk-based scenarios | 19 requirements; 30 scenarios; 16 design-only cases |
 
-## Project 1 — E-Commerce QA Case Study
+## Selected Project Evidence
 
-An end-to-end nopCommerce case study covering requirement discovery, 24/24 successful manual tests, 10/10 Cypress regression checks, a reproducible Docker Compose environment, and verified GitHub Actions execution.
+### E-Commerce QA
 
-- Manual QA: **24/24 PASS**
-- Cypress: **10/10 PASS**
-- Controlled environment: nopCommerce 4.90.6 + SQL Server 2022 CU20 Express
-- GitHub Actions: **PASS** — [canonical run](https://github.com/ndo-fer/software-qa-portfolio/actions/runs/31572314690)
+The nopCommerce project follows requirement discovery through manual execution and automation. It includes approved requirements, risk-based scenarios, detailed Excel test cases, 24/24 live manual results, execution screenshots, and a 10-test Cypress suite. Public-demo Cypress traffic was blocked with HTTP 403, so automation runs against a documented local/CI Docker environment without bypassing the external restriction.
 
-[View the full Project 1 case study](01-ecommerce-qa-case-study/README.md)
+[View the e-commerce case study](01-ecommerce-qa-case-study/README.md)
 
-## Project 2 — Legacy ERP Migration Analysis
+### Selenium Cross-Browser Automation
 
-A clean-room migration-analysis case study that reconstructs 30 fictional legacy capabilities into 13 business rules, 19 functional requirements, 30 QA scenarios, and 16 selected detailed cases.
+The SauceDemo suite uses Python, pytest, Selenium WebDriver, focused Page Objects, stable locators, explicit waits, and a fresh browser session per test. CI publishes browser-specific JUnit reports and failure screenshots. Firefox is the required target at 9/9; Chrome remains experimental after a local 8/9 full-suite result and intermittent hosted interaction failures. This is documented as an execution-environment automation limitation, not a confirmed SauceDemo defect.
 
-**DESIGN ONLY — no execution result is claimed.**
-
-[View the full Project 2 case study](02-legacy-erp-analysis-case-study/README.md)
-
-## Project 3 — REST API Testing
-
-An executable Restful Booker suite covering authenticated CRUD, negative authorization, dynamic resource chaining, contract validation, local Postman CLI execution, and GitHub Actions CI.
-
-- Designed API tests: **16**
-- Collection requests: **19**
-- Assertions: **47/47 PASS**
-- JSON Schema checks: **2**
-- Local Postman CLI: **PASS**
-- GitHub Actions: **PASS** — [canonical run](https://github.com/ndo-fer/software-qa-portfolio/actions/runs/31580305791)
-
-[View the full Project 3 case study](03-api-testing-case-study/README.md)
+[View the Selenium case study](04-selenium-case-study/README.md)
 
 ## Skills Demonstrated
 
-Manual QA · Test Design · Requirement Analysis · Cypress · REST API / Postman · SQL · Docker · Git / GitHub · GitHub Actions · QA Documentation
-
-## About
-
-I am Fernando Michael Panjaitan, a Quality Assurance / Software Tester focused on reliable delivery through clear requirements, thoughtful test design, traceable evidence, and maintainable regression coverage.
-
-[Connect with me on LinkedIn](https://linkedin.com/in/fernando-m-p)
+- **Manual QA:** exploratory testing, test execution, evidence capture, defect/limitation reporting
+- **Automation:** Cypress/TypeScript, Selenium/Python/pytest, Postman CLI, Page Object pattern
+- **Test Design:** requirements analysis, traceability, risk-based scenarios, positive/negative testing, API contracts
+- **CI / Engineering Workflow:** Git, GitHub Actions, Docker Compose, isolated test data, JUnit artifacts, failure diagnostics
 
 ## Confidentiality
 
-This clean-room portfolio uses public/demo systems, fictional scenarios, and synthetic data. It contains no employer source code, private company artifacts, proprietary documentation, real customer data, passwords, or credentials.
+This portfolio uses public demo systems, fictional business scenarios, synthetic data, and independently created artifacts. It contains no employer/client source code, private documentation, real customer data, or personal credentials.
+
+[Connect with me on LinkedIn](https://linkedin.com/in/fernando-m-p)
