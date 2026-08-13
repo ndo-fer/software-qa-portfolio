@@ -65,6 +65,27 @@ jobs:
           --headless
           --junitxml "reports/junit-${{ matrix.browser }}.xml"
 
+      - name: Annotate pytest failures
+        if: failure()
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from xml.etree import ElementTree
+
+          report = Path("reports/junit-${{ matrix.browser }}.xml")
+          if report.exists():
+              for case in ElementTree.parse(report).iter("testcase"):
+                  failure = case.find("failure")
+                  if failure is None:
+                      failure = case.find("error")
+                  if failure is not None:
+                      test_id = f"{case.get('classname')}::{case.get('name')}"
+                      detail = (failure.get("message") or failure.text or "pytest failure")
+                      detail = detail.replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A")
+                      print(f"::error title={test_id}::{detail}")
+          PY
+
       - name: Upload JUnit report
         if: always()
         uses: actions/upload-artifact@v7
