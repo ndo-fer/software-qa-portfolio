@@ -1,14 +1,14 @@
 # nopCommerce Cypress Regression Suite
 
-This TypeScript Cypress suite automates ten high-value checks from the approved manual QA baseline. The target is the shared public nopCommerce demo, so the suite is intentionally scoped as portfolio regression/smoke coverage rather than a fully controlled deterministic test environment.
+This TypeScript Cypress suite automates ten regression checks selected from the approved e-commerce test baseline. The public nopCommerce demo blocks Cypress with HTTP 403, so the suite runs against the controlled environment described below.
 
 ## Why These Tests
 
-The selected checks emphasize negative authentication behavior, anonymous access control, core product discovery, product-detail business rules, cart calculations, and configuration identity. They are repeatable without account creation, stored credentials, checkout, or persistent test data and demonstrate useful regression candidates across four modules.
+The selected checks cover negative authentication behavior, anonymous access control, core product discovery, product-detail business rules, cart calculations, and configuration identity. They run without account creation, stored credentials, checkout, or persistent test data.
 
 ## Traceability
 
-| Cypress Test | Manual TC | Scenario | Requirement | Coverage |
+| Cypress Test | Detailed TC | Scenario | Requirement | Coverage |
 |---|---|---|---|---|
 | Reject invalid login and clear credentials | TC-AUTH-003 | SCN-AUTH-004, SCN-AUTH-005, SCN-AUTH-006 | REQ-AUTH-004 | Automated |
 | Redirect anonymous protected-page access | TC-AUTH-004 | SCN-AUTH-007 | REQ-AUTH-005 | Automated |
@@ -25,9 +25,9 @@ The selected checks emphasize negative authentication behavior, anonymous access
 
 Cypress test isolation is enabled. Every test invokes a state-establishment helper that clears browser storage, starts an anonymous session, and confirms an empty cart. Cart tests create all required items inside the current test. Helpers do not share or preserve state between tests, and no test depends on execution order.
 
-## What Remains Manual
+## Coverage Outside This Cypress Suite
 
-Registration, valid authenticated sessions, advanced search, sorting and layout-state preservation, cart removal and mini-cart synchronization, guest checkout, payment-method presentation, order completion, post-order cart reset, exploratory testing, and accessibility/usability review remain manual. These areas either require disposable account/order data, broader stateful flows, or are outside the intentionally small first automation suite.
+Registration, authenticated-session flows, advanced search, sorting and layout-state preservation, cart removal and mini-cart synchronization, guest checkout, payment-method presentation, order completion, post-order cart reset, exploratory testing, and accessibility/usability review are outside this first Cypress suite. These areas require broader state setup, disposable account/order data, or separate exploratory coverage.
 
 ## Shared-Demo and Selector Limitations
 
@@ -41,7 +41,7 @@ Because the portfolio does not control nopCommerce source code, no dedicated `da
 
 - Ten Cypress tests are implemented across four TypeScript specs.
 - The TypeScript check passes with `npx tsc --noEmit`.
-- The manual test execution against the public demo succeeded before this automation phase.
+- Script-driven live browser execution with manual evidence review was completed before the Cypress automation phase.
 - Cypress execution against the public demo is blocked at the initial page request by HTTP `403 Forbidden`.
 - Zero product assertions were reached. The Cypress runner's ten reported failures are environment-blocked tests, not ten failed product tests.
 - The public environment is externally controlled, and no Cloudflare or anti-bot bypass was attempted.
@@ -70,7 +70,7 @@ CI does not use a preinstalled database, committed volume, self-hosted runner, C
 Execution distinctions:
 
 - Local controlled environment: Docker Compose → nopCommerce 4.90.6 sample store → 10/10 Cypress passes.
-- Public demo: manual execution succeeded, but Cypress receives HTTP 403; no anti-bot bypass is attempted.
+- Public demo: live execution review completed successfully, while Cypress receives HTTP 403; no anti-bot bypass is attempted.
 - CI: fresh GitHub-hosted runner → Docker Compose → automated sample-data bootstrap → the same Cypress regression suite. Refer to the actual GitHub Actions run for status.
 
 ## Install

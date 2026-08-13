@@ -6,7 +6,7 @@ Restful Booker — `https://restful-booker.herokuapp.com`
 
 ## Test Objective
 
-Demonstrate compact, executable API QA coverage across HTTP status handling, authentication, positive and negative behavior, CRUD persistence, data integrity, dynamic variable chaining, and JSON contract validation.
+Cover HTTP status handling, authentication, positive and negative behavior, CRUD persistence, data integrity, dynamic variable chaining, and JSON contract validation.
 
 ## Environment Constraints
 
@@ -23,11 +23,11 @@ Demonstrate compact, executable API QA coverage across HTTP status handling, aut
 
 The published Restful Booker behavior defines the health, authentication, booking list, create, detail, full update, partial update, and delete operations. The portfolio treats documented success statuses and documented response shapes as the primary contract.
 
-### LIVE RECONNAISSANCE OBSERVATION
+### Observed Behavior
 
-Approved reconnaissance observed `404` for an unknown booking ID, `403` for missing or invalid mutation authentication, `500` for a missing create payload, and `418` for an unsupported `Accept` value. During the Sprint 1 CLI run, the same unsupported `Accept` request returned `200`, showing that this header behavior is not stable. The `500` and prior `418` are recorded only as observed negative behavior; they are not defect claims or formalized API requirements.
+A reconnaissance run observed `404` for an unknown booking ID, `403` for missing or invalid mutation authentication, `500` for a missing create payload, and `418` for an unsupported `Accept` value. During the Sprint 1 CLI run, the same unsupported `Accept` request returned `200`, showing that this header behavior is not stable. The `500` and prior `418` are recorded only as observed negative behavior; they are not defect claims or formalized API requirements.
 
-### PORTFOLIO TEST EXPECTATION
+### Test Expectations
 
 The collection asserts the stable documented flow and the approved observed statuses. It creates and chains a runtime token and booking ID, verifies mutation persistence with follow-up reads, confirms protected state after rejected mutations, and deletes only the booking created by the current run.
 

@@ -53,7 +53,7 @@
 - `TC-CHK-005`: **PASS** — Inspected shopping cart immediately following guest order completion. The active cart was cleared (line item count = 0, 'Your Shopping Cart is empty!') and header cart count badge restored to (0).
 
 ## Defect Candidates
-No defect candidates were identified during targeted live execution repair. All 24 selected test cases passed strict evidence validation against the live nopCommerce demo environment.
+No defect candidates were identified in this execution set. All 24 selected test cases were recorded as PASS based on the reviewed execution results.
 
 
 ## Environment Events
@@ -62,25 +62,25 @@ No defect candidates were identified during targeted live execution repair. All 
 
 ## Evidence Index
 - `TC-AUTH-001` → `evidence/execution/auth/EXEC-TC-AUTH-001.png`
-- `TC-AUTH-002` → `evidence/execution/auth/EXEC-TC-AUTH-002.png`
-- `TC-AUTH-003` → `evidence/execution/auth/EXEC-TC-AUTH-003.png`
+- `TC-AUTH-002` → No supporting screenshot retained; result remains documented in the execution workbook.
+- `TC-AUTH-003` → Shared observation screenshot: `evidence/discovery/auth/AUTH-EV-004.png`
 - `TC-AUTH-004` → `evidence/execution/auth/EXEC-TC-AUTH-004.png`
 - `TC-CART-001` → `evidence/execution/cart/EXEC-TC-CART-001.png`
 - `TC-CART-002` → `evidence/execution/cart/EXEC-TC-CART-002.png`
-- `TC-CART-003` → `evidence/execution/cart/EXEC-TC-CART-003.png`
-- `TC-CART-004` → `evidence/execution/cart/EXEC-TC-CART-004.png`
-- `TC-CART-005` → `evidence/execution/cart/EXEC-TC-CART-005.png`
+- `TC-CART-003` → Shared empty-cart screenshot: `evidence/discovery/cart/CART-EV-004.png`
+- `TC-CART-004` → No supporting screenshot retained; result remains documented in the execution workbook.
+- `TC-CART-005` → No supporting screenshot retained; result remains documented in the execution workbook.
 - `TC-CART-006` → `evidence/execution/cart/EXEC-TC-CART-006.png`
 - `TC-CHK-001` → `evidence/execution/checkout/EXEC-TC-CHK-001.png`
 - `TC-CHK-002` → `evidence/execution/checkout/EXEC-TC-CHK-002.png`
-- `TC-CHK-003` → `evidence/execution/checkout/EXEC-TC-CHK-003.png`
-- `TC-CHK-004` → `evidence/execution/checkout/EXEC-TC-CHK-004.png`
-- `TC-CHK-005` → `evidence/execution/checkout/EXEC-TC-CHK-005.png`
+- `TC-CHK-003` → Shared payment-method screenshot: `evidence/discovery/checkout/CHK-EV-004.png`
+- `TC-CHK-004` → Shared order-completion screenshot: `evidence/discovery/checkout/CHK-EV-005.png`
+- `TC-CHK-005` → Shared empty-cart screenshot: `evidence/discovery/cart/CART-EV-004.png`
 - `TC-DISC-001` → `evidence/execution/discovery/EXEC-TC-DISC-001.png`
 - `TC-DISC-002` → `evidence/execution/discovery/EXEC-TC-DISC-002.png`
 - `TC-DISC-003` → `evidence/execution/discovery/EXEC-TC-DISC-003.png`
 - `TC-DISC-004` → `evidence/execution/discovery/EXEC-TC-DISC-004.png`
-- `TC-DISC-005` → `evidence/execution/discovery/EXEC-TC-DISC-005.png`
+- `TC-DISC-005` → Shared manufacturer-filter screenshot: `evidence/discovery/discovery/DISC-EV-NIKE.png`
 - `TC-DISC-006` → `evidence/execution/discovery/EXEC-TC-DISC-006.png`
 - `TC-PDP-001` → `evidence/execution/product/EXEC-TC-PDP-001.png`
 - `TC-PDP-002` → `evidence/execution/product/EXEC-TC-PDP-002.png`

@@ -2,7 +2,7 @@
 
 ## 1. Document Purpose
 
-This Mini System Requirements Document defines a compact, testable V1 baseline for the fictional Northstar Components Manufacturing browser-based ERP. It demonstrates the path from Sprint 1 legacy analysis through synthetic stakeholder decisions and reusable business rules to functional requirements. It is not a complete ERP specification and does not reproduce any real internal system.
+This Mini System Requirements Document defines a testable V1 baseline for the fictional Northstar Components Manufacturing browser-based ERP. It traces the selected legacy analysis and stakeholder decisions into business rules and functional requirements. It is not a complete ERP specification and does not reproduce any real internal system.
 
 ## 2. Case Background
 

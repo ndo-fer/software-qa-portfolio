@@ -4,7 +4,7 @@
 
 ## Project Summary
 
-This clean-room case study follows a QA workflow against the public nopCommerce demo: structured product discovery, requirement and risk-based test design, script-driven live browser execution with manual evidence review, regression selection, Cypress automation, a controlled Docker target, and verified GitHub Actions execution.
+This case study covers requirement discovery, test design, script-driven browser execution with manual evidence review, and Cypress regression automation against nopCommerce. Because the public demo blocks Cypress with HTTP 403, the automated suite runs against a controlled Docker Compose environment locally and in GitHub Actions.
 
 ## Final Metrics
 
@@ -46,7 +46,7 @@ The ten Cypress regression checks cover Authentication, Product Discovery, Produ
 
 - Reviewed live execution: **24/24 PASS**
 - Controlled local Cypress: **10/10 PASS**
-- GitHub Actions: **10/10 PASS** — [canonical hosted run](https://github.com/ndo-fer/software-qa-portfolio/actions/runs/31572314690)
+- GitHub Actions: **10/10 PASS** — [GitHub Actions run](https://github.com/ndo-fer/software-qa-portfolio/actions/runs/31572314690)
 
 For reproduction, use the [controlled-environment guide](test-environment/README.md) and [automation guide](automation/README.md); they contain the setup, run, configuration, and troubleshooting details.
 

@@ -1,14 +1,12 @@
 # SauceDemo Selenium Cross-Browser Automation
 
-[![Selenium CI](https://github.com/ndo-fer/software-qa-portfolio/actions/workflows/selenium.yml/badge.svg?branch=main)](https://github.com/ndo-fer/software-qa-portfolio/actions/workflows/selenium.yml)
-
-**BASELINE FINALIZED — Firefox gating, Chrome diagnostic**
+**CI status:** Firefox required; Chrome diagnostic.
 
 ## Purpose
 
-This project demonstrates a compact, maintainable Selenium WebDriver suite against the public [SauceDemo](https://www.saucedemo.com/) storefront.
+This project contains nine Selenium/pytest tests against the public [SauceDemo](https://www.saucedemo.com/) storefront, organized with Page Objects and run across Chrome and Firefox.
 
-It complements [Project 1](../01-ecommerce-qa-case-study/README.md): Project 1 uses Cypress, TypeScript, Docker, and a controlled application environment; this project emphasizes Python, pytest, Page Objects, isolated browser sessions, and a Chrome/Firefox CI matrix.
+It complements [Project 1](../01-ecommerce-qa-case-study/README.md), which uses Cypress, TypeScript, and a controlled Docker environment. This case study uses Python, pytest, Page Objects, isolated browser sessions, and a Chrome/Firefox CI matrix.
 
 ## Stack
 
@@ -75,7 +73,9 @@ pytest --browser chrome --headless --junitxml reports/junit-chrome.xml
 pytest --browser firefox --headless --junitxml reports/junit-firefox.xml
 ```
 
-## Results
+## Recorded Baseline Results
+
+The results below are the recorded baseline used for this case study.
 
 | Environment | Browser | Result | Duration |
 |---|---|---:|---:|
@@ -88,11 +88,11 @@ pytest --browser firefox --headless --junitxml reports/junit-firefox.xml
 
 ## Cross-Browser CI Result
 
-Firefox is the required, gating browser and passed **9/9** tests. Chrome remains in the matrix as an experimental diagnostic target. Local final full-suite validation passed **8/9**, while focused Logout and checkout interaction checks each passed **3/3**. The latest hosted Chrome job passed **4/9** and retained its pytest failures and artifacts for diagnosis.
+Firefox is the required, gating browser and passed **9/9** tests. Chrome remains in the matrix as an experimental diagnostic target. The recorded local full-suite baseline passed **8/9**, while focused Logout and checkout interaction checks each passed **3/3**. The recorded hosted Chrome baseline passed **4/9** and retained its pytest failures and artifacts for diagnosis.
 
-Chrome showed intermittent interaction failures across dynamic menu, cart, and checkout controls. In the accepted local checkout failure, customer-information values were populated but the application did not transition after activation and remained on checkout step one. This is classified as a **HOSTED CHROME AUTOMATION LIMITATION / FLAKY INTERACTION**, not a confirmed SauceDemo defect. No retry, fixed sleep, JavaScript click, browser-specific branch, or pointer-offset workaround was introduced to mask it.
+Chrome showed intermittent interaction failures across dynamic menu, cart, and checkout controls. In the recorded local checkout failure, customer-information values were populated but the application did not transition after activation and remained on checkout step one. This is classified as a **HOSTED CHROME AUTOMATION LIMITATION / FLAKY INTERACTION**, not a confirmed SauceDemo defect. No retry, fixed sleep, JavaScript click, browser-specific branch, or pointer-offset workaround was introduced to mask it.
 
-The workflow preserves the Chrome pytest exit and failure artifacts while allowing that experimental matrix job to continue. Firefox remains the required signal. See the [finalized cross-browser run](https://github.com/ndo-fer/software-qa-portfolio/actions/runs/31708257843).
+The workflow preserves the Chrome pytest exit and failure artifacts while allowing that experimental matrix job to continue. Firefox remains the required signal. See the [cross-browser CI baseline run](https://github.com/ndo-fer/software-qa-portfolio/actions/runs/31708257843).
 
 ## Artifacts
 
@@ -100,7 +100,7 @@ The workflow preserves the Chrome pytest exit and failure artifacts while allowi
 - [Page Objects](pages/)
 - [pytest suite](tests/)
 - [Cross-browser workflow](../.github/workflows/selenium.yml)
-- Reproducible JUnit XML under `reports/`
+- JUnit XML under `reports/`
 - Failure-only screenshots under `screenshots/`
 
 Generated XML and PNG artifacts are ignored locally and uploaded by CI. The empty directories are retained with `.gitkeep` files.

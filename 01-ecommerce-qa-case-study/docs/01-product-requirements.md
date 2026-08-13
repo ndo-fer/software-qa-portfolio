@@ -2,7 +2,7 @@
 
 ## 1. Scope
 
-This document prepares a focused, interview-defensible requirement baseline for the nopCommerce Demo storefront. It does not attempt to document every nopCommerce capability.
+This document defines the requirement baseline used for the nopCommerce e-commerce case study. It focuses on the flows selected for discovery, test design, execution review, and later regression automation rather than attempting to document every nopCommerce capability.
 
 The primary Sprint 1 product story is:
 
@@ -14,7 +14,7 @@ Authentication
 → Checkout
 ```
 
-The intended traceability chain is product evidence → human analysis → approved portfolio requirement → exploration → scenario and case design → execution → defect and regression reasoning → later automation selection.
+The intended traceability chain is product evidence → analysis → approved case-study requirement → exploration → scenario and case design → execution → defect and regression reasoning → later automation selection.
 
 The following are future or secondary coverage and are outside the current baseline unless explicitly approved later: custom wishlists, product comparison, product reviews, gift cards, rental products, digital downloads, vendor registration, blog/newsletter, currency switching, email-a-friend, and advanced account management.
 
@@ -24,16 +24,16 @@ The following are future or secondary coverage and are outside the current basel
 |---|---|
 | PUBLIC PRODUCT INFORMATION | A UI capability or behavior supported by the official nopCommerce demo frontend or official nopCommerce documentation. Documentation can describe configurable platform capability and does not prove that it is enabled in the current demo. |
 | OBSERVED BEHAVIOR | Behavior directly exercised and recorded during the live discovery sessions. Observed behavior describes what occurred in the evaluated demo state; it does not automatically establish a universal nopCommerce business rule. |
-| PORTFOLIO REQUIREMENT | Expected behavior intentionally defined and approved by the portfolio owner for this clean-room case study. |
+| CASE-STUDY REQUIREMENT | Expected behavior defined through a documented case-study decision. |
 | ASSUMPTION | A plausible interpretation that has not been sufficiently verified. |
-| OPEN QUESTION / NEEDS CLARIFICATION | Intended behavior is not established and requires manual evidence or an explicit human decision. |
+| OPEN QUESTION / NEEDS CLARIFICATION | Intended behavior is not established and requires live evidence or an explicit documented decision. |
 
-Expected behavior may be established only by an approved portfolio requirement, clearly supported public product behavior, or an explicit human decision. Otherwise, it remains **NEEDS CLARIFICATION**.
+Expected behavior may be established only by an approved case-study requirement, clearly supported public product behavior, or an explicit documented decision. Otherwise, it remains **NEEDS CLARIFICATION**.
 
 The following controls apply:
 
 - Public documentation is not automatically current-demo configuration evidence.
-- Public product information is not observed behavior until the portfolio owner verifies it.
+- Public product information is not observed behavior until it is verified during the case study.
 - Observation shows what happened, not automatically what should happen.
 - An assumption or open question cannot become approved behavior without an explicit human decision.
 - Unexpected behavior is not a defect by default. Before requirements are approved, it is classified as **POTENTIAL DEFECT — NEEDS CLARIFICATION** when appropriate.
@@ -53,7 +53,7 @@ The system under test is the official shared nopCommerce Demo frontend. Other us
 
 ## 4. Pre-Discovery Requirement Baseline
 
-> This section preserves the pre-execution understanding, assumptions, candidate state models, and unknowns used to design the discovery run. It is intentionally historical. Current evidence status is maintained in Section 6 — Open Question Register and the reconciled exploratory evidence document.
+> This section preserves the pre-execution understanding, assumptions, candidate state models, and unknowns used to design the discovery run. It is intentionally historical. Current evidence status is maintained in Section 6 — Open Question Register and the exploratory discovery notes.
 
 ### 4.1 Authentication
 
@@ -67,7 +67,7 @@ The system under test is the official shared nopCommerce Demo frontend. Other us
 - **ASSUMPTION — Login:** an account exists in current demo state, the reset has not removed it, and supplied credentials correspond to it.
 - **ASSUMPTION — Guest checkout:** checkout has been initiated and the cart contains at least one purchasable item.
 
-All candidate preconditions require manual validation.
+All candidate preconditions require live validation.
 
 #### 3. What state changes?
 
@@ -82,7 +82,7 @@ ANONYMOUS + CART → checkout → GUEST CHECKOUT
 
 #### 4. What behavior is clearly supported?
 
-**PUBLIC PRODUCT INFORMATION** supports the visible existence of registration, required-field indicators, email/password login, Remember me, Forgot password, navigation to registration, and guest-checkout entry. Successful transitions and exact outcomes still require manual observation.
+**PUBLIC PRODUCT INFORMATION** supports the visible existence of registration, required-field indicators, email/password login, Remember me, Forgot password, navigation to registration, and guest-checkout entry. Successful transitions and exact outcomes still require direct observation.
 
 #### 5. What is currently only an assumption?
 
@@ -149,7 +149,7 @@ These are candidate preconditions and must not be generalized from one product t
 
 #### 3. What state changes?
 
-Potential transitions, all requiring manual confirmation, are:
+Potential transitions, all requiring live confirmation, are:
 
 ```text
 UNCONFIGURED PRODUCT → select required attributes → CONFIGURED PRODUCT
@@ -246,7 +246,7 @@ Exact billing/shipping fields and requirements, methods, terms acceptance, tax, 
 
 The checkout sequence, required fields, shipping appearance and methods, payment methods, safe non-real-payment completion, confirmation state, post-order cart state, and registered-user post-order state remain **NEEDS CLARIFICATION**. See CHK-OQ-001 through CHK-OQ-009.
 
-## 5. Strategic Exploration Probes
+## 5. Exploration Focus Areas
 
 These probes are not requirements and not defects. They prioritize state transition, business-rule, boundary/negative, cross-module dependency, and regression-oriented reasoning.
 
@@ -300,7 +300,7 @@ These probes are not requirements and not defects. They prioritize state transit
 | DISC-OQ-005 | Discovery | How do price filters treat products showing an old price and a current price? | NEEDS CLARIFICATION | Standard product prices observed. | Price range slider inclusion against original list price vs discounted selling price. |
 | DISC-OQ-006 | Discovery | Does price sorting use the actual currently displayed selling price? | NEEDS CLARIFICATION | Price low-to-high sorting verified on base catalog products. | Sort rank when attribute configuration alters displayed product price relative to base price. |
 | DISC-OQ-007 | Discovery | Does switching Grid/List preserve query, filter, and sort state? | PARTIALLY RESOLVED | Observed: category, active filter (Nike), and sort state preserved while switching Grid/List view. (Supporting Obs: `OBS-DISC-006-VIEW`) | Search-query preservation during Grid/List switching was not tested in this flow. |
-| DISC-OQ-008 | Discovery | Does changing page size preserve query, filter, and sort state? | PARTIALLY RESOLVED | Observed: page size updated (`pagesize` parameter), category/filter/sort state preserved. (Supporting Evidence: `Page Size Repair Canonical Record`) | Search-query preservation during page-size change was not tested in this flow. |
+| DISC-OQ-008 | Discovery | Does changing page size preserve query, filter, and sort state? | PARTIALLY RESOLVED | Observed: page size updated (`pagesize` parameter), category/filter/sort state preserved. (Supporting Observation: `OBS-DISC-007-PAGESIZE`) | Search-query preservation during page-size change was not tested in this flow. |
 | PDP-OQ-001 | Product Detail | What happens when Add to cart is attempted without required attributes? | RESOLVED | Attempting Add to Cart without selecting required options displays top notification warning and blocks addition. (Supporting Obs: `OBS-PDP-004`) | None. |
 | PDP-OQ-002 | Product Detail | How does the UI represent unavailable attribute combinations? | NEEDS CLARIFICATION | Valid configuration selections tested. | Visual styling, disabled dropdown options, or submit-time validation for invalid attribute combinations. |
 | PDP-OQ-003 | Product Detail | Does selecting different attributes change displayed price, SKU, or image? | PARTIALLY RESOLVED | Displayed price dynamically updates between Config A ($1,315.00), Config B ($1,445.00), and default ($1,200.00). | SKU updates and product main image swaps upon attribute selection not fully evaluated. |
@@ -312,7 +312,7 @@ These probes are not requirements and not defects. They prioritize state transit
 | CART-OQ-002 | Cart | How are two different configurations of the same base product represented? | RESOLVED | Different product configurations create distinct cart line rows with separate DOM attribute text summaries. (Supporting Obs: `OBS-CART-004`) | None. |
 | CART-OQ-003 | Cart | What happens after the final remaining cart item is removed? | RESOLVED | Removing the final item renders empty cart screen, updates header count to `(0)`, and removes order summary DOM nodes. (Supporting Obs: `OBS-CART-007`) | None. |
 | CART-OQ-004 | Cart | What quantity boundaries exist? | NEEDS CLARIFICATION | Quantity updates (1 -> 2 -> 3) verified on shopping cart form. | Maximum line item quantity, maximum cart capacity limit, and high-quantity validation errors. |
-| CART-OQ-005 | Cart | How do cart quantity, header count, mini-cart, and full-cart state synchronize? | RESOLVED | Full Cart, Header Count `(N)`, and visible Mini-Cart flyout synchronized consistently across all cart states (C0-C3). (Supporting Evidence: `Cart C0-C3 Canonical Micro-Run`) | None. |
+| CART-OQ-005 | Cart | How do cart quantity, header count, mini-cart, and full-cart state synchronize? | RESOLVED | Full Cart, Header Count `(N)`, and visible Mini-Cart flyout synchronized consistently across all cart states (C0-C3). (Supporting Observation: `OBS-CART-005`) | None. |
 | CART-OQ-006 | Cart | Does guest cart state survive authentication? | NEEDS CLARIFICATION | Guest cart item additions verified. | Guest cart item merge vs overwrite behavior upon logging in with an existing account. |
 | CART-OQ-007 | Cart | What happens to the cart when the environment resets? | NEEDS CLARIFICATION (ENVIRONMENT-SPECIFIC) | Active cart state maintained during execution session. | Cart clearance vs retention following backend demo scheduled reset. |
 | CART-OQ-008 | Cart | How do configuration price changes affect cart totals? | RESOLVED | Attribute price adjustments dynamically alter item unit price and accurately propagate to subtotal and order totals. (Supporting Obs: `OBS-CART-001` / `OBS-CART-002`) | None. |
@@ -357,7 +357,7 @@ These 22 entries are coverage topics, not final requirement wording. None is app
 
 ## 7A. Requirement Consolidation Proposal
 
-> Consolidation review completed. The approved portfolio baseline is maintained in Section 9.
+> Consolidation review completed. The approved case-study baseline is maintained in Section 9.
 
 ### 7A.1 Candidate Topic Analysis Summary
 
@@ -371,7 +371,7 @@ These 22 entries are coverage topics, not final requirement wording. None is app
 | CAND-DISC-02 | SPLIT INTO MULTIPLE REQUIREMENTS | REQ-DISC-002, REQ-DISC-003 | OBS-DISC-001, OBS-DISC-002 | OPEN (DISC-OQ-001), NONE (DISC-OQ-004 RESOLVED) | Keyword search results vs zero-result empty state message are separate outcomes. Matching semantics open under DISC-OQ-001. |
 | CAND-DISC-03 | CONSOLIDATE WITH SCOPE LIMITATION | REQ-DISC-004 | OBS-DISC-003, OBS-DISC-004 | OPEN (DISC-OQ-001) | Advanced search category constraint verified; complex boolean logic remains open. |
 | CAND-DISC-04 | CONSOLIDATE WITH SCOPE LIMITATION | REQ-DISC-005 | OBS-DISC-004-FILT / DISC-EV-NIKE.png | OPEN (DISC-OQ-002, DISC-OQ-005) | Single manufacturer checkbox filter verified; multi-filter combination semantics remain open. |
-| CAND-DISC-05 | SPLIT INTO MULTIPLE REQUIREMENTS | REQ-DISC-006, REQ-DISC-007, REQ-DISC-008 | OBS-DISC-005-SORT, OBS-DISC-006-VIEW, Page Size Repair Canonical Record | PARTIAL (DISC-OQ-007, DISC-OQ-008), OPEN (DISC-OQ-006) | Sorting, Grid/List view toggle, and page size adjustment are distinct controls. Query preservation during layout changes partially open. |
+| CAND-DISC-05 | SPLIT INTO MULTIPLE REQUIREMENTS | REQ-DISC-006, REQ-DISC-007, REQ-DISC-008 | OBS-DISC-005-SORT, OBS-DISC-006-VIEW, OBS-DISC-007-PAGESIZE | PARTIAL (DISC-OQ-007, DISC-OQ-008), OPEN (DISC-OQ-006) | Sorting, Grid/List view toggle, and page size adjustment are distinct controls. Query preservation during layout changes partially open. |
 | CAND-PDP-01 | KEEP AS ONE REQUIREMENT | REQ-PDP-001 | OBS-PDP-001 | NONE | Simple PDP displays basic details, price, SKU, and active cart button without options. |
 | CAND-PDP-02 | CONSOLIDATE WITH SCOPE LIMITATION | REQ-PDP-002 | OBS-PDP-002, OBS-PDP-004 | NONE (PDP-OQ-001 RESOLVED), OPEN (PDP-OQ-002) | Missing required configuration blocks cart addition; unavailable combinations open. |
 | CAND-PDP-03 | CONSOLIDATE WITH SCOPE LIMITATION | REQ-PDP-003 | OBS-PDP-005, OBS-PDP-006, PDP-EV-001-CONFIGB.png | PARTIAL (PDP-OQ-003), NONE (PDP-OQ-007 RESOLVED) | Price updates dynamically and configured item enters cart; image swap & SKU changes partially open. |
@@ -379,7 +379,7 @@ These 22 entries are coverage topics, not final requirement wording. None is app
 | CAND-CART-01 | MERGE WITH ANOTHER CANDIDATE | Merged into REQ-CART-006 | OBS-CART-001, OBS-CART-004 | NONE (PDP-OQ-007, CART-OQ-002 RESOLVED) | Cart line item representation is part of configuration identity (CAND-CART-05). |
 | CAND-CART-02 | CONSOLIDATE WITH SCOPE LIMITATION | REQ-CART-001 | OBS-CART-002 | OPEN (CART-OQ-004), NONE (CART-OQ-008 RESOLVED) | Quantity update recalculates totals; max capacity limits open under CART-OQ-004. |
 | CAND-CART-03 | KEEP AS ONE REQUIREMENT | REQ-CART-002 | OBS-CART-006 | NONE | Multi-item cart line removal updates table and totals without clearing remaining items. |
-| CAND-CART-04 | SPLIT INTO MULTIPLE REQUIREMENTS | REQ-CART-003, REQ-CART-004 | OBS-CART-007, Cart C0-C3 Canonical Micro-Run | NONE (CART-OQ-003, CART-OQ-005 RESOLVED) | Final item removal/empty cart screen vs multi-surface (Header/Mini-Cart/Full-Cart) synchronization are distinct concerns. |
+| CAND-CART-04 | SPLIT INTO MULTIPLE REQUIREMENTS | REQ-CART-003, REQ-CART-004 | OBS-CART-007, OBS-CART-005 | NONE (CART-OQ-003, CART-OQ-005 RESOLVED) | Final item removal/empty cart screen vs multi-surface (Header/Mini-Cart/Full-Cart) synchronization are distinct concerns. |
 | CAND-CART-05 | SPLIT INTO MULTIPLE REQUIREMENTS | REQ-CART-005, REQ-CART-006 | OBS-CART-003, OBS-CART-004, CART-EV-C3-MICRO.png, CART-EV-003.png | NONE (CART-OQ-001, CART-OQ-002 RESOLVED) | Identical configuration quantity merging vs distinct configuration line separation are separate behaviors. |
 | CAND-CHK-01 | MERGE WITH ANOTHER CANDIDATE | Merged into REQ-CHK-001 | OBS-CHK-001, OBS-CHK-002 | NONE | Terms acceptance and unauthenticated entry lead into guest checkout lander (CAND-CHK-02). |
 | CAND-CHK-02 | CONSOLIDATE WITH SCOPE LIMITATION | REQ-CHK-001 | OBS-CHK-002, OBS-CHK-003 | NONE (CHK-OQ-001 RESOLVED) | Unauthenticated checkout lander presents Guest/Register/Login options and initiates guest checkout flow. |
@@ -466,7 +466,7 @@ Do not create defects during this session. An unexpected result remains **POTENT
   - **Supporting Observation / Evidence:** `OBS-AUTH-001` / `AUTH-EV-001.png`
   - **Scope Limitation:** Client-side tooltips, field layout responsiveness, and visual styling are strictly bounded to current demo layout. Server-side regex and exact field length limits remain unverified.
   - **Dependent Open Questions:** `AUTH-OQ-001`, `AUTH-OQ-003`
-  - **Status:** APPROVED — PORTFOLIO BASELINE
+  - **Status:** APPROVED — CASE-STUDY BASELINE
 
 - **Requirement ID:** REQ-AUTH-002
   - **Module:** Authentication
@@ -477,7 +477,7 @@ Do not create defects during this session. An unexpected result remains **POTENT
   - **Supporting Observation / Evidence:** `OBS-AUTH-002`, `OBS-AUTH-003` / `AUTH-EV-002.png`, `AUTH-EV-003.png`
   - **Scope Limitation:** Registration success is bounded to unique disposable email addresses. Duplicate email submission outcomes and server-side validation error messages remain unverified.
   - **Dependent Open Questions:** `AUTH-OQ-001`, `AUTH-OQ-002`, `AUTH-OQ-003`
-  - **Status:** APPROVED — PORTFOLIO BASELINE
+  - **Status:** APPROVED — CASE-STUDY BASELINE
 
 - **Requirement ID:** REQ-AUTH-003
   - **Module:** Authentication
@@ -488,7 +488,7 @@ Do not create defects during this session. An unexpected result remains **POTENT
   - **Supporting Observation / Evidence:** `OBS-AUTH-005`
   - **Scope Limitation:** Remember me persistence across browser restarts and session duration remain unverified.
   - **Dependent Open Questions:** `AUTH-OQ-005`
-  - **Status:** APPROVED — PORTFOLIO BASELINE
+  - **Status:** APPROVED — CASE-STUDY BASELINE
 
 - **Requirement ID:** REQ-AUTH-004
   - **Module:** Authentication
@@ -499,7 +499,7 @@ Do not create defects during this session. An unexpected result remains **POTENT
   - **Supporting Observation / Evidence:** `OBS-AUTH-006` / `AUTH-EV-004.png`
   - **Scope Limitation:** Bounded to single invalid login attempt. Account locking, attempt limits, and brute-force throttling remain unverified.
   - **Dependent Open Questions:** NONE (`AUTH-OQ-004` RESOLVED)
-  - **Status:** APPROVED — PORTFOLIO BASELINE
+  - **Status:** APPROVED — CASE-STUDY BASELINE
 
 - **Requirement ID:** REQ-AUTH-005
   - **Module:** Authentication
@@ -510,7 +510,7 @@ Do not create defects during this session. An unexpected result remains **POTENT
   - **Supporting Observation / Evidence:** `OBS-AUTH-007`
   - **Scope Limitation:** Evaluated for customer info URL only; other protected admin or account endpoints remain unverified.
   - **Dependent Open Questions:** NONE (`AUTH-OQ-006` RESOLVED)
-  - **Status:** APPROVED — PORTFOLIO BASELINE
+  - **Status:** APPROVED — CASE-STUDY BASELINE
 
 ### 9.2 Product Discovery / Search Module
 
@@ -523,7 +523,7 @@ Do not create defects during this session. An unexpected result remains **POTENT
   - **Supporting Observation / Evidence:** `OBS-DISC-005` / `DISC-EV-001.png`
   - **Scope Limitation:** Bounded to active categories in demo catalog.
   - **Dependent Open Questions:** NONE
-  - **Status:** APPROVED — PORTFOLIO BASELINE
+  - **Status:** APPROVED — CASE-STUDY BASELINE
 
 - **Requirement ID:** REQ-DISC-002
   - **Module:** Product Discovery
@@ -534,7 +534,7 @@ Do not create defects during this session. An unexpected result remains **POTENT
   - **Supporting Observation / Evidence:** `OBS-DISC-001`
   - **Scope Limitation:** Matching algorithm tokenization, stemming, description indexing, and fuzzy matching rules remain unverified.
   - **Dependent Open Questions:** `DISC-OQ-001`
-  - **Status:** APPROVED — PORTFOLIO BASELINE
+  - **Status:** APPROVED — CASE-STUDY BASELINE
 
 - **Requirement ID:** REQ-DISC-003
   - **Module:** Product Discovery
@@ -545,7 +545,7 @@ Do not create defects during this session. An unexpected result remains **POTENT
   - **Supporting Observation / Evidence:** `OBS-DISC-002` / `DISC-EV-002.png`
   - **Scope Limitation:** Bounded to standard simple search submit.
   - **Dependent Open Questions:** NONE (`DISC-OQ-004` RESOLVED)
-  - **Status:** APPROVED — PORTFOLIO BASELINE
+  - **Status:** APPROVED — CASE-STUDY BASELINE
 
 - **Requirement ID:** REQ-DISC-004
   - **Module:** Product Discovery
@@ -556,7 +556,7 @@ Do not create defects during this session. An unexpected result remains **POTENT
   - **Supporting Observation / Evidence:** `OBS-DISC-003`, `OBS-DISC-004` / `DISC-EV-003.png`, `DISC-EV-004.png`
   - **Scope Limitation:** Multi-category selection and price-range advanced search parameters remain unverified.
   - **Dependent Open Questions:** `DISC-OQ-001`
-  - **Status:** APPROVED — PORTFOLIO BASELINE
+  - **Status:** APPROVED — CASE-STUDY BASELINE
 
 - **Requirement ID:** REQ-DISC-005
   - **Module:** Product Discovery
@@ -567,7 +567,7 @@ Do not create defects during this session. An unexpected result remains **POTENT
   - **Supporting Observation / Evidence:** `OBS-DISC-004-FILT` / `DISC-EV-NIKE.png`
   - **Scope Limitation:** Multi-filter boolean AND/OR combinations and price slider interactions remain unverified.
   - **Dependent Open Questions:** `DISC-OQ-002`, `DISC-OQ-005`
-  - **Status:** APPROVED — PORTFOLIO BASELINE
+  - **Status:** APPROVED — CASE-STUDY BASELINE
 
 - **Requirement ID:** REQ-DISC-006
   - **Module:** Product Discovery
@@ -578,7 +578,7 @@ Do not create defects during this session. An unexpected result remains **POTENT
   - **Supporting Observation / Evidence:** `OBS-DISC-005-SORT`
   - **Scope Limitation:** Displayed selling price vs base price sorting on configurable products remains unverified.
   - **Dependent Open Questions:** `DISC-OQ-006`
-  - **Status:** APPROVED — PORTFOLIO BASELINE
+  - **Status:** APPROVED — CASE-STUDY BASELINE
 
 - **Requirement ID:** REQ-DISC-007
   - **Module:** Product Discovery
@@ -589,7 +589,7 @@ Do not create defects during this session. An unexpected result remains **POTENT
   - **Supporting Observation / Evidence:** `OBS-DISC-006-VIEW`
   - **Scope Limitation:** Preservation of active simple search query strings across view toggles was not tested and remains unverified.
   - **Dependent Open Questions:** `DISC-OQ-007` (PARTIALLY RESOLVED)
-  - **Status:** APPROVED — PORTFOLIO BASELINE
+  - **Status:** APPROVED — CASE-STUDY BASELINE
 
 - **Requirement ID:** REQ-DISC-008
   - **Module:** Product Discovery
@@ -597,10 +597,10 @@ Do not create defects during this session. An unexpected result remains **POTENT
   - **Precondition:** User is viewing a category or product listing page exposing page size options.
   - **Requirement:** When a user selects a different page size option (e.g., changing dropdown from 6 to 3), the storefront shall adjust the visible product count per page, append `pagesize=N` to the URL, and preserve active category, filter, and sort state.
   - **Evidence Basis:** OBSERVED BEHAVIOR
-  - **Supporting Observation / Evidence:** `Page Size Repair Canonical Record`
+  - **Supporting Observation / Evidence:** `OBS-DISC-007-PAGESIZE`
   - **Scope Limitation:** Preservation of active simple search query strings across page size adjustments was not tested and remains unverified.
   - **Dependent Open Questions:** `DISC-OQ-008` (PARTIALLY RESOLVED)
-  - **Status:** APPROVED — PORTFOLIO BASELINE
+  - **Status:** APPROVED — CASE-STUDY BASELINE
 
 ### 9.3 Product Detail & Configuration Module
 
@@ -613,7 +613,7 @@ Do not create defects during this session. An unexpected result remains **POTENT
   - **Supporting Observation / Evidence:** `OBS-PDP-001` / `PDP-EV-001.png`
   - **Scope Limitation:** Bounded to non-configurable simple product pages.
   - **Dependent Open Questions:** NONE
-  - **Status:** APPROVED — PORTFOLIO BASELINE
+  - **Status:** APPROVED — CASE-STUDY BASELINE
 
 - **Requirement ID:** REQ-PDP-002
   - **Module:** Product Detail
@@ -624,7 +624,7 @@ Do not create defects during this session. An unexpected result remains **POTENT
   - **Supporting Observation / Evidence:** `OBS-PDP-002`, `OBS-PDP-004` / `PDP-EV-002.png`
   - **Scope Limitation:** Out-of-stock or incompatible option combination handling remains unverified.
   - **Dependent Open Questions:** NONE (`PDP-OQ-001` RESOLVED)
-  - **Status:** APPROVED — PORTFOLIO BASELINE
+  - **Status:** APPROVED — CASE-STUDY BASELINE
 
 - **Requirement ID:** REQ-PDP-003
   - **Module:** Product Detail
@@ -635,7 +635,7 @@ Do not create defects during this session. An unexpected result remains **POTENT
   - **Supporting Observation / Evidence:** `OBS-PDP-005`, `OBS-PDP-006`, `PDP-EV-001-CONFIGB.png`
   - **Scope Limitation:** Image thumbnail swapping and SKU code changes upon attribute selection remain unverified.
   - **Dependent Open Questions:** `PDP-OQ-003` (PARTIALLY RESOLVED)
-  - **Status:** APPROVED — PORTFOLIO BASELINE
+  - **Status:** APPROVED — CASE-STUDY BASELINE
 
 ### 9.4 Cart Module
 
@@ -648,7 +648,7 @@ Do not create defects during this session. An unexpected result remains **POTENT
   - **Supporting Observation / Evidence:** `OBS-CART-002` / `CART-EV-002.png`
   - **Scope Limitation:** Maximum quantity boundaries, stock limit validation error popups, and high-quantity input sanitization remain unverified.
   - **Dependent Open Questions:** `CART-OQ-004`
-  - **Status:** APPROVED — PORTFOLIO BASELINE
+  - **Status:** APPROVED — CASE-STUDY BASELINE
 
 - **Requirement ID:** REQ-CART-002
   - **Module:** Cart
@@ -659,7 +659,7 @@ Do not create defects during this session. An unexpected result remains **POTENT
   - **Supporting Observation / Evidence:** `OBS-CART-006` / `CART-EV-004.png`
   - **Scope Limitation:** Bounded to multi-item cart state.
   - **Dependent Open Questions:** NONE
-  - **Status:** APPROVED — PORTFOLIO BASELINE
+  - **Status:** APPROVED — CASE-STUDY BASELINE
 
 - **Requirement ID:** REQ-CART-003
   - **Module:** Cart
@@ -670,7 +670,7 @@ Do not create defects during this session. An unexpected result remains **POTENT
   - **Supporting Observation / Evidence:** `OBS-CART-007`
   - **Scope Limitation:** Bounded to final item removal.
   - **Dependent Open Questions:** NONE (`CART-OQ-003` RESOLVED)
-  - **Status:** APPROVED — PORTFOLIO BASELINE
+  - **Status:** APPROVED — CASE-STUDY BASELINE
 
 - **Requirement ID:** REQ-CART-004
   - **Module:** Cart
@@ -678,10 +678,10 @@ Do not create defects during this session. An unexpected result remains **POTENT
   - **Precondition:** Cart state transitions occur (addition, quantity update, removal).
   - **Requirement:** The storefront shall maintain immediate state synchronization between the header cart count badge `(N)`, the mini-cart flyout dropdown, and the full shopping cart table across all cart states (C0 through C3).
   - **Evidence Basis:** OBSERVED BEHAVIOR
-  - **Supporting Observation / Evidence:** `Cart C0-C3 Canonical Micro-Run`
+  - **Supporting Observation / Evidence:** `OBS-CART-005`
   - **Scope Limitation:** Bounded to active browser session interactions. Guest cart merging upon authentication remains unverified.
   - **Dependent Open Questions:** NONE (`CART-OQ-005` RESOLVED)
-  - **Status:** APPROVED — PORTFOLIO BASELINE
+  - **Status:** APPROVED — CASE-STUDY BASELINE
 
 - **Requirement ID:** REQ-CART-005
   - **Module:** Cart
@@ -692,7 +692,7 @@ Do not create defects during this session. An unexpected result remains **POTENT
   - **Supporting Observation / Evidence:** `OBS-CART-003` / `CART-EV-C3-MICRO.png`
   - **Scope Limitation:** Bounded to exact matching attribute configurations.
   - **Dependent Open Questions:** NONE (`CART-OQ-001` RESOLVED)
-  - **Status:** APPROVED — PORTFOLIO BASELINE
+  - **Status:** APPROVED — CASE-STUDY BASELINE
 
 - **Requirement ID:** REQ-CART-006
   - **Module:** Cart
@@ -703,7 +703,7 @@ Do not create defects during this session. An unexpected result remains **POTENT
   - **Supporting Observation / Evidence:** `OBS-CART-004` / `CART-EV-003.png`
   - **Scope Limitation:** Bounded to distinguishable attribute configurations.
   - **Dependent Open Questions:** NONE (`CART-OQ-002` RESOLVED)
-  - **Status:** APPROVED — PORTFOLIO BASELINE
+  - **Status:** APPROVED — CASE-STUDY BASELINE
 
 ### 9.5 Checkout Module
 
@@ -716,7 +716,7 @@ Do not create defects during this session. An unexpected result remains **POTENT
   - **Supporting Observation / Evidence:** `OBS-CHK-001`, `OBS-CHK-002`, `OBS-CHK-003` / `CHK-EV-001.png`, `CHK-EV-002.png`
   - **Scope Limitation:** Bounded to anonymous physical-product checkout initiation.
   - **Dependent Open Questions:** NONE (`CHK-OQ-001` RESOLVED)
-  - **Status:** APPROVED — PORTFOLIO BASELINE
+  - **Status:** APPROVED — CASE-STUDY BASELINE
 
 - **Requirement ID:** REQ-CHK-002
   - **Module:** Checkout
@@ -727,7 +727,7 @@ Do not create defects during this session. An unexpected result remains **POTENT
   - **Supporting Observation / Evidence:** `OBS-CHK-004` / `CHK-EV-003.png`
   - **Scope Limitation:** Negative field-level inline validation rules remain unverified.
   - **Dependent Open Questions:** NONE (`CHK-OQ-001`, `CHK-OQ-002` RESOLVED)
-  - **Status:** APPROVED — PORTFOLIO BASELINE
+  - **Status:** APPROVED — CASE-STUDY BASELINE
 
 - **Requirement ID:** REQ-CHK-003
   - **Module:** Checkout
@@ -738,7 +738,7 @@ Do not create defects during this session. An unexpected result remains **POTENT
   - **Supporting Observation / Evidence:** `OBS-CHK-004`, `OBS-CHK-005` / `CHK-EV-004.png`
   - **Scope Limitation:** Credit card payment gateway authorization and processing remain unverified.
   - **Dependent Open Questions:** NONE (`CHK-OQ-004`, `CHK-OQ-005` RESOLVED)
-  - **Status:** APPROVED — PORTFOLIO BASELINE
+  - **Status:** APPROVED — CASE-STUDY BASELINE
 
 - **Requirement ID:** REQ-CHK-004
   - **Module:** Checkout
@@ -749,7 +749,7 @@ Do not create defects during this session. An unexpected result remains **POTENT
   - **Supporting Observation / Evidence:** `OBS-CHK-005` / `CHK-EV-005.png`
   - **Scope Limitation:** Registered user account portal order history, PDF invoice generation, and re-order functionality remain unverified.
   - **Dependent Open Questions:** `CHK-OQ-009`
-  - **Status:** APPROVED — PORTFOLIO BASELINE
+  - **Status:** APPROVED — CASE-STUDY BASELINE
 
 - **Requirement ID:** REQ-CHK-005
   - **Module:** Checkout
@@ -760,4 +760,4 @@ Do not create defects during this session. An unexpected result remains **POTENT
   - **Supporting Observation / Evidence:** `OBS-CHK-006`
   - **Scope Limitation:** Bounded to guest checkout session completion.
   - **Dependent Open Questions:** NONE (`CHK-OQ-008` RESOLVED)
-  - **Status:** APPROVED — PORTFOLIO BASELINE
+  - **Status:** APPROVED — CASE-STUDY BASELINE

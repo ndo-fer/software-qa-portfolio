@@ -2,7 +2,7 @@
   "info": {
     "_postman_id": "ac148acb-cad4-4c3a-aeaa-4be350d7d10a",
     "name": "Restful Booker API Test Suite",
-    "description": "Stateful, isolated Restful Booker API portfolio suite. Each run creates and deletes only its own runtime booking.",
+    "description": "Stateful, isolated Restful Booker API suite. Each run creates and deletes only its own runtime booking.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [

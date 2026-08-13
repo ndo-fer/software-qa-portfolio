@@ -4,13 +4,13 @@
 
 **Status:** COMPLETE — REST API Testing and CI
 
-This compact portfolio project uses [Restful Booker](https://restful-booker.herokuapp.com/) because it exposes a practical HTTP surface for health checks, authentication, booking CRUD, negative authorization, and response-contract testing. The public homepage links to the API documentation and published practice credentials. Its public, resettable environment also makes test isolation an explicit part of the QA design.
+This case study uses [Restful Booker](https://restful-booker.herokuapp.com/) to cover health checks, authentication, CRUD, negative authorization, response contracts, and cleanup in a shared public environment. Because the service resets periodically, each run creates and deletes its own booking.
 
 ## Coverage
 
 The collection covers `GET /ping`, `POST /auth`, `GET /booking`, `POST /booking`, `GET /booking/:id`, `PUT /booking/:id`, `PATCH /booking/:id`, and `DELETE /booking/:id`.
 
-The final package contains **16 designed API test cases**, implemented as **19 ordered collection requests** with **47 assertions** and **2 JSON Schema checks**. Test categories include positive, negative, authorization, contract, stateful CRUD, header/content negotiation, and data integrity.
+The suite contains **16 designed API test cases**, implemented as **19 ordered collection requests** with **47 assertions** and **2 JSON Schema checks**. Test categories include positive, negative, authorization, contract, stateful CRUD, header/content negotiation, and data integrity.
 
 Authenticated full replacement (`PUT`) changes the complete booking representation and is verified by a follow-up read. Authenticated partial mutation (`PATCH`) changes only selected fields; tests verify both changed values and untouched state. Missing and invalid authentication are rejected, followed by reads that prove the runtime resource remains protected.
 

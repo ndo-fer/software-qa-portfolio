@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Build a small TypeScript Cypress suite that demonstrates regression-oriented automation for the approved nopCommerce portfolio baseline. The suite covers ten isolated, high-value checks and intentionally excludes registration, persistent authentication, checkout, and behavior outside approved requirements.
+Build a small TypeScript Cypress regression suite for the approved nopCommerce case-study baseline. The suite covers ten isolated checks and intentionally excludes registration, persistent authentication, checkout, and behavior outside approved requirements.
 
 ## Architecture
 
@@ -22,7 +22,7 @@ Each test asserts approved observable behavior. Cart quantity tests parse curren
 
 ## Traceability Scope
 
-The ten tests map to ten selected manual test cases and cover approved authentication, product-discovery, product-detail, and cart requirements. Full traceability is maintained in `README.md`.
+The ten tests map to ten selected detailed test cases and cover approved authentication, product-discovery, product-detail, and cart requirements. Full traceability is maintained in `README.md`.
 
 ## Shared-Demo Constraints
 
