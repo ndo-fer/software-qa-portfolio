@@ -18,3 +18,13 @@ Thumbs.db
 # Temporary files
 *.tmp
 *.log
+
+# Python generated artifacts
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+
+# Selenium generated artifacts
+04-selenium-case-study/reports/*.xml
+04-selenium-case-study/screenshots/*.png
